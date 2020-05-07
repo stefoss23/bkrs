@@ -1,7 +1,7 @@
 
 
 foreach (test   test_utils
-                #test_rng
+                test_rng
                 #test_timer
     )
     add_executable(${test} test/${test}.cpp)
