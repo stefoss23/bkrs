@@ -3,7 +3,7 @@
 foreach (test   test_mathutils
                 #test_approx_function
                 #test_fourier
-                #test_math_vector
+                test_math_vector
     )
     add_executable(${test} test/${test}.cpp)
     target_link_libraries(${test} rads)

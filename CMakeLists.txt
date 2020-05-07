@@ -27,7 +27,7 @@ add_library(rads SHARED  utils/src/utils.cpp
                          mathematics/src/mathutils.cpp
                          #mathematics/src/approx_function.cpp
                          #mathematics/src/fourier.cpp
-                         #mathematics/src/math_vector.cpp
+                         mathematics/src/math_vector.cpp
 
                          #radar/src/target.cpp
                          #radar/src/adc.cpp
