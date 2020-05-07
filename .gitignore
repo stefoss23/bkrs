@@ -1,0 +1,16 @@
+/build
+*.aux
+*.dvi
+*.log
+*.toc
+*.out
+*.pdf
+*.swp
+*.pyc
+*.so
+.idea/
+*.conf
+
+
+
+
