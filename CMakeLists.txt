@@ -48,7 +48,7 @@ install(DIRECTORY include/ DESTINATION include)
 #Start test setup
 enable_testing()
 add_subdirectory(utils)
-#add_subdirectory(mathematics)
+add_subdirectory(mathematics)
 #add_subdirectory(radar)
 #End test setup
 
