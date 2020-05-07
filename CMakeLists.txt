@@ -25,7 +25,7 @@ add_library(rads SHARED  utils/src/utils.cpp
                          utils/src/timer.cpp
            
                          mathematics/src/mathutils.cpp
-                         #mathematics/src/approx_function.cpp
+                         mathematics/src/approx_function.cpp
                          #mathematics/src/fourier.cpp
                          mathematics/src/math_vector.cpp
 

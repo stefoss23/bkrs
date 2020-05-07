@@ -1,7 +1,7 @@
 
 
 foreach (test   test_mathutils
-                #test_approx_function
+                test_approx_function
                 #test_fourier
                 test_math_vector
     )
