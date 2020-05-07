@@ -20,7 +20,7 @@ set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/test-data)
 
-add_library(rads SHARED  #utils/src/utils.cpp
+add_library(rads SHARED  utils/src/utils.cpp
                          #utils/src/rng.cpp
                          #utils/src/timer.cpp
            
@@ -47,7 +47,7 @@ install(DIRECTORY include/ DESTINATION include)
 
 #Start test setup
 enable_testing()
-#add_subdirectory(utils)
+add_subdirectory(utils)
 #add_subdirectory(mathematics)
 #add_subdirectory(radar)
 #End test setup
