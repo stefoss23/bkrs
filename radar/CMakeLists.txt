@@ -1,7 +1,7 @@
 
 message(${TEST_DIR})
 
-foreach (test   #test_target
+foreach (test   test_target
                 #test_radar
                 #test_radar_signal
                 #test_adc
