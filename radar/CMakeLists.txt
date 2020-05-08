@@ -9,7 +9,7 @@ foreach (test   test_target
                 test_radar_config
                 test_beam_pattern
                 test_radar_data_queue
-                #test_interface_plain
+                test_interface_plain
                 test_pulse_data
                 test_config_parser
     )

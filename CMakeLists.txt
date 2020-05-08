@@ -39,7 +39,7 @@ add_library(rads SHARED  utils/src/utils.cpp
                          radar/src/bandpass_filter.cpp
                          radar/src/beam_pattern.cpp
                          radar/src/radar_data_queue.cpp
-                         #radar/src/radar_interface.cpp
+                         radar/src/radar_interface.cpp
            )
 target_link_libraries(rads pthread)
 install(TARGETS rads DESTINATION "lib")
