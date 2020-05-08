@@ -5,7 +5,7 @@ foreach (test   test_target
                 #test_radar
                 #test_radar_signal
                 test_adc
-                #test_bandpass_filter
+                test_bandpass_filter
                 #test_radar_config
                 #test_beam_pattern
                 #test_radar_data_queue
