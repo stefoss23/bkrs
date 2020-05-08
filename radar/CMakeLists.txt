@@ -11,7 +11,7 @@ foreach (test   test_target
                 #test_radar_data_queue
                 #test_interface_plain
                 test_pulse_data
-                #test_config_parser
+                test_config_parser
     )
     add_executable(${test} test/${test}.cpp)
     target_link_libraries(${test} rads)
