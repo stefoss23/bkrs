@@ -37,7 +37,7 @@ add_library(rads SHARED  utils/src/utils.cpp
                          #radar/src/radar.cpp
                          #radar/src/radar_config.cpp
                          radar/src/bandpass_filter.cpp
-                         #radar/src/beam_pattern.cpp
+                         radar/src/beam_pattern.cpp
                          #radar/src/radar_data_queue.cpp
                          #radar/src/radar_interface.cpp
            )
