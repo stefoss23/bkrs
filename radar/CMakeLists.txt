@@ -24,9 +24,9 @@ foreach (test   test_target
 endforeach ()
 
 #these are tests than cannot run successfully w/ valgrind
-foreach (test   #test_radar_exceptions
-                #test_interface
-                #test_interface_performance
+foreach (test   test_radar_exceptions
+                test_interface
+                test_interface_performance
     )
     add_executable(${test} test/${test}.cpp)
     target_link_libraries(${test} rads)
