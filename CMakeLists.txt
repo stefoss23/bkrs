@@ -24,10 +24,10 @@ add_library(rads SHARED  utils/src/utils.cpp
                          utils/src/rng.cpp
                          utils/src/timer.cpp
            
-                         #mathematics/src/mathutils.cpp
-                         #mathematics/src/approx_function.cpp
-                         #mathematics/src/fourier.cpp
-                         #mathematics/src/math_vector.cpp
+                         mathematics/src/mathutils.cpp
+                         mathematics/src/approx_function.cpp
+                         mathematics/src/fourier.cpp
+                         mathematics/src/math_vector.cpp
 
                          #radar/src/target.cpp
                          #radar/src/adc.cpp
@@ -48,7 +48,7 @@ install(DIRECTORY include/ DESTINATION include)
 #Start test setup
 enable_testing()
 add_subdirectory(utils)
-#add_subdirectory(mathematics)
+add_subdirectory(mathematics)
 #add_subdirectory(radar)
 #End test setup
 
