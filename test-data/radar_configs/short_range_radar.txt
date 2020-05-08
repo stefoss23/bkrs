@@ -1,0 +1,20 @@
+#This is a radar config designed for general testting
+#Unambiguous range is short - 20 km
+
+Frequency        10.0 #Ghz
+PeakPower        10000 #W
+PulseWidth       0.25 #microsec
+SamplingTime     0.25 #microsec
+PRT              0.13333333333 #ms
+BandWidth        4.0 #Mhz
+NoiseFigure      4.0 #db
+DuplexSwitchTime 3.08333333 #microsec
+AntennaeGain     30.0 #db
+AzBeamWidth      2.0 #deg
+ElBeamWidth      40.0 #deg
+
+Azimuth          90.0 #deg
+
+ADCResolution    10 #bit
+ADCMode          Power
+ADCMin2Noise     0.01953125 #unit

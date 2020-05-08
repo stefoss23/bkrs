@@ -29,17 +29,17 @@ add_library(rads SHARED  utils/src/utils.cpp
                          mathematics/src/fourier.cpp
                          mathematics/src/math_vector.cpp
 
-                         #radar/src/target.cpp
-                         #radar/src/adc.cpp
-                         #radar/src/radar_config_parser.cpp
-                         #radar/src/pulse_data.cpp
-                         #radar/src/radar_state.cpp
-                         #radar/src/radar.cpp
-                         #radar/src/radar_config.cpp
-                         #radar/src/bandpass_filter.cpp
-                         #radar/src/beam_pattern.cpp
-                         #radar/src/radar_data_queue.cpp
-                         #radar/src/radar_interface.cpp
+                         radar/src/target.cpp
+                         radar/src/adc.cpp
+                         radar/src/radar_config_parser.cpp
+                         radar/src/pulse_data.cpp
+                         radar/src/radar_state.cpp
+                         radar/src/radar.cpp
+                         radar/src/radar_config.cpp
+                         radar/src/bandpass_filter.cpp
+                         radar/src/beam_pattern.cpp
+                         radar/src/radar_data_queue.cpp
+                         radar/src/radar_interface.cpp
            )
 target_link_libraries(rads pthread)
 install(TARGETS rads DESTINATION "lib")
@@ -49,7 +49,7 @@ install(DIRECTORY include/ DESTINATION include)
 enable_testing()
 add_subdirectory(utils)
 add_subdirectory(mathematics)
-#add_subdirectory(radar)
+add_subdirectory(radar)
 #End test setup
 
 #add applications

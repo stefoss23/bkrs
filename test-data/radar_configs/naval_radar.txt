@@ -1,0 +1,19 @@
+#This is a radar config for a general navigation radar
+#Receives detections up to 60 km. 
+
+Frequency        9.4 #Ghz
+PeakPower        10000 #W
+PulseWidth       0.25 #microsec
+PRT              2.0 #ms
+MaxReceiveTime   0.4 #ms
+BandWidth        4.0 #Mhz
+NoiseFigure      4.0 #db
+DuplexSwitchTime 1.0 #microsec
+AntennaeGain     30.0 #db
+AzBeamWidth      2.0 #deg
+ElBeamWidth      40.0 #deg
+AntRotationSpeed 180.0 #deg/s, clockwise rotation
+
+ADCResolution    14 #bit
+ADCMode          Power
+ADCMin2Noise     0.1 #unit
