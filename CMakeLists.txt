@@ -49,7 +49,7 @@ install(DIRECTORY include/ DESTINATION include)
 enable_testing()
 add_subdirectory(utils)
 add_subdirectory(mathematics)
-#add_subdirectory(radar)
+add_subdirectory(radar)
 #End test setup
 
 #add applications
