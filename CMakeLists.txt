@@ -30,7 +30,7 @@ add_library(rads SHARED  utils/src/utils.cpp
                          mathematics/src/math_vector.cpp
 
                          radar/src/target.cpp
-                         #radar/src/adc.cpp
+                         radar/src/adc.cpp
                          #radar/src/radar_config_parser.cpp
                          #radar/src/pulse_data.cpp
                          #radar/src/radar_state.cpp
