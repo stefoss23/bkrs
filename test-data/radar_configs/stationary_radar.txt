@@ -1,0 +1,19 @@
+#This is a radar similar to a naviation radar, but non-rotating
+#It can sample signal from distances up to 60 km. 
+#It emits a pulse every 5 s
+
+Frequency        10.0 #Ghz
+PeakPower        10000 #W
+PulseWidth       0.25 #microsec
+MaxReceiveTime   0.4 #ms
+PRT              5000 #ms
+BandWidth        4.0 #Mhz
+NoiseFigure      4.0 #db
+DuplexSwitchTime 3.08333333 #microsec
+AntennaeGain     30.0 #db
+AzBeamWidth      2.0 #deg
+ElBeamWidth      40.0 #deg
+
+ADCResolution    12 #bit
+ADCMode          Power
+ADCMin2Noise     0.01953125 #unit
