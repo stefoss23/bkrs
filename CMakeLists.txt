@@ -4,8 +4,8 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -Wno-unused-parameter")
 
-option( ENABLE_CXX_EXAMPLES     "Enable CXX examples."                           OFF)
-option( ENABLE_PYTHON           "Enable python bindings."                        OFF)
+option( ENABLE_CXX_EXAMPLES     "Enable CXX examples."                           ON)
+option( ENABLE_PYTHON           "Enable python bindings."                        ON)
 option( ENABLE_PYTHON_EXAMPLES  "Enable python examples."                        OFF)
 option( MEM_CHECK               "Use valgrind to check for memory errors"        OFF)
 
