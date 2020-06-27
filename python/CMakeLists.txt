@@ -13,7 +13,7 @@ set(PYTHON_TEST_DIR ${CMAKE_SOURCE_DIR}/python/tests)
 set(PYTHON_EXAMPLE_DIR ${CMAKE_SOURCE_DIR}/python/examples)
 
 add_subdirectory(lib)
-#add_subdirectory(cxx)
+add_subdirectory(cxx)
 add_subdirectory(tests)
 
 if (ENABLE_PYTHON_EXAMPLES)
