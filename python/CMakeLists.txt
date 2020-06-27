@@ -1,9 +1,9 @@
 #pybind11
-#find_package(PythonLibs REQUIRED)
-#include_directories(${PYTHON_INCLUDE_DIRS})
-#set( PYBIND11_CPP_STANDARD "-std=c++14" )
-#add_subdirectory( pybind11 )
-#set(PYBIND11_PYTHON_VERSION 3.6)
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+set( PYBIND11_CPP_STANDARD "-std=c++14" )
+add_subdirectory( pybind11 )
+set(PYBIND11_PYTHON_VERSION 3.6)
 #end pybind11
 
 set(PYTHON_DIR ${CMAKE_SOURCE_DIR}/python)
@@ -13,7 +13,7 @@ set(PYTHON_TEST_DIR ${CMAKE_SOURCE_DIR}/python/tests)
 set(PYTHON_EXAMPLE_DIR ${CMAKE_SOURCE_DIR}/python/examples)
 
 add_subdirectory(lib)
-#add_subdirectory(cxx)
+add_subdirectory(cxx)
 add_subdirectory(tests)
 
 if (ENABLE_PYTHON_EXAMPLES)
