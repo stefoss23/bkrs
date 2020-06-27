@@ -19,7 +19,7 @@ foreach (test  #test_approx_function
                #test_vectors
                #test_math_vector
                test_utils
-               #test_math_utils
+               test_math_utils
                #test_radar_config
                #test_radar_generate
         )
