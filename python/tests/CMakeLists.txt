@@ -1,12 +1,12 @@
 
 
 
-#pybind11_add_module(test_devel_python t_vectors.cpp)
-#set_target_properties(test_devel_python
-#        PROPERTIES PREFIX ""
-#                   SUFFIX ".so"
-#        )
-#target_link_libraries(test_devel_python PRIVATE rads)
+pybind11_add_module(test_devel_python t_vectors.cpp)
+set_target_properties(test_devel_python
+        PROPERTIES PREFIX ""
+                   SUFFIX ".so"
+        )
+target_link_libraries(test_devel_python PRIVATE rads)
 
 
 foreach (test  #test_approx_function
@@ -16,7 +16,7 @@ foreach (test  #test_approx_function
                #test_beampattern
                #test_fourier
                #test_target
-               #test_vectors
+               test_vectors
                #test_math_vector
                test_utils
                test_math_utils
