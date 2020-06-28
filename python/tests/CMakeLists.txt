@@ -14,7 +14,7 @@ foreach (test  test_approx_function
                #test_adc
                #test_bandpass
                #test_beampattern
-               #test_fourier
+               test_fourier
                #test_target
                test_vectors
                test_math_vector
