@@ -17,7 +17,7 @@ foreach (test  #test_approx_function
                #test_fourier
                #test_target
                test_vectors
-               #test_math_vector
+               test_math_vector
                test_utils
                test_math_utils
                #test_radar_config
