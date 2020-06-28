@@ -9,7 +9,7 @@ set_target_properties(test_devel_python
 target_link_libraries(test_devel_python PRIVATE rads)
 
 
-foreach (test  #test_approx_function
+foreach (test  test_approx_function
                #test_radar
                #test_adc
                #test_bandpass
