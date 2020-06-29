@@ -20,5 +20,5 @@ if (ENABLE_PYTHON_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-#configure_file(python_setup.conf.in python_setup.conf)
-#configure_file(python_setup.conf.in ${PYTHON_DIR}/python_setup.conf)
+configure_file(python_setup.conf.in python_setup.conf)
+configure_file(python_setup.conf.in ${PYTHON_DIR}/python_setup.conf)
