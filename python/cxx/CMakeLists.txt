@@ -1,7 +1,7 @@
 
 foreach (tgt    utils
                 mathematics
-                #radar
+                radar
     )
 
     pybind11_add_module(${tgt}_python ${tgt}_pybind.cpp)
