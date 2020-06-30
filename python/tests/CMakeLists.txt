@@ -10,18 +10,18 @@ target_link_libraries(test_devel_python PRIVATE rads)
 
 
 foreach (test  test_approx_function
-               #test_radar
-               #test_adc
-               #test_bandpass
-               #test_beampattern
+               test_radar
+               test_adc
+               test_bandpass
+               test_beampattern
                test_fourier
-               #test_target
+               test_target
                test_vectors
                test_math_vector
                test_utils
                test_math_utils
-               #test_radar_config
-               #test_radar_generate
+               test_radar_config
+               test_radar_generate
         )
         add_test(NAME python_${test} COMMAND python ${PYTHON_TEST_DIR}/${test}.py)
 endforeach()
