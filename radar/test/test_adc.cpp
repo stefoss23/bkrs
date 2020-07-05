@@ -17,10 +17,8 @@ void test_adc_effect_mode() {
   int num_levels = adc.getNumLevels();
   assert( num_levels == 1024 );
   assert( complex_equal(adc.getSensitivity(), min_level, 1e-2) );
-  double amplitude = sqrt(min_level * 1024); //amp
-  assert(adc.convertSignal(amplitude) == num_levels - 1);
-  amplitude = sqrt(min_level * 122.001); //amp
-  assert(adc.convertSignal(amplitude) == 122);
+  assert(adc.convertSignal(min_level * 1024) == num_levels - 1);
+  assert(adc.convertSignal(min_level * 122.001) == 122);
 }
 
 void test_adc_log_mode() {
@@ -28,12 +26,9 @@ void test_adc_log_mode() {
   double min_level  = 1e-14; //W
   int    resolution = 9; //bits
   ADC adc(resolution, ADCMode::Logarithm, min_level, max_level); 
-  double amplitude = sqrt(max_level * 1.01);
-  assert( adc.convertSignal(amplitude) == 511 );
-  amplitude = sqrt(min_level * 0.5);
-  assert( adc.convertSignal(amplitude) == 0 );
-  amplitude = sqrt(min_level * 5);
-  assert( adc.convertSignal(amplitude) == 177 );
+  assert( adc.convertSignal(max_level * 1.01) == 511 );
+  assert( adc.convertSignal(min_level * 0.5) == 0 );
+  assert( adc.convertSignal(min_level * 5) == 177 );
 }
 
 void wrong_1() {
