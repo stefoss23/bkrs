@@ -13,8 +13,7 @@ class ADCTester(unittest.TestCase):
 
     def test2(self):
         adc = ADC(10, ADCMode.Power, 1e-12)
-        A = np.sqrt(1e-12 * 100.001)
-        self.assertEqual(adc.convert(A), 100)
+        self.assertEqual(adc.convert(1e-12 * 100.001), 100)
         with self.assertRaises(Exception):
             adc.Convert('sdfs')
 
