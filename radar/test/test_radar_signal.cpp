@@ -137,8 +137,9 @@ void test_basic_signal(const RadarConfig& config) {
   radar.setToAddNoise(false);
 
   double signal_override = 40 * avg_noise; //W
-  double filtered_signal = radar.getFilteredPulse().output(0) * powerToAmp(signal_override); //amp
-  unsigned short digital_signal = radar.getADC().convertSignal(filtered_signal);
+  double signal_amplitude = radar.getFilteredPulse().output(0) * powerToAmp(signal_override); //amp
+  double signal_power = signal_amplitude * signal_amplitude; //W
+  unsigned short digital_signal = radar.getADC().convertSignal(signal_power);
 
   int bin_index = 253; //creating a bin index on which the target is exactly located. 
   double base_distance = radar.getRange(bin_index); //m
@@ -474,7 +475,7 @@ void test_phase_and_multiple_targets(RadarConfig config) {
   double avg_noise = radar.getAvgNoise(); //W
   double sensitivity = 0.005 * avg_noise;
   double max_range = radar.getUnAmbiguousRange();
-  auto digital_signal = radar.getADC().convertSignal( powerToAmp(avg_noise) );
+  auto digital_signal = radar.getADC().convertSignal( avg_noise );
 
   TargetCollection targets;
 
