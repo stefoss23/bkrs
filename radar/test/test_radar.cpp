@@ -64,6 +64,7 @@ void test_radar(const string& config_file) {
   double AvgNoise = radar.getAvgNoise();
   auto pulse_data = radar.generatePulseData();
   auto& registry = pulse_data.registry;
+  cout << "Reg[0] = " << registry[0] << endl;
   assert(  !(registry[0] == registry[1] && registry[1] == registry[2] &&
              registry[2] == registry[3] && registry[3] == registry[4])  );
 
@@ -74,7 +75,7 @@ void test_radar(const string& config_file) {
   assert( pulse1.isOriginal() );
   assert( pulse1.hasOriginalRegistry() );
   registry = pulse1.registry;
-  unsigned short Signal = adc.convertSignal( powerToAmp(AvgNoise) );
+  unsigned short Signal = adc.convertSignal(AvgNoise);
   assert( double_equal(registry[0], Signal, 1e-3) );
   radar.setUsePdf(true);
 
@@ -132,10 +133,8 @@ void test_radar_equation(RadarConfig config) {
   double received_power = P * G * G * cross_section * l * l / 
                           (  4*4*4 * pi*pi*pi * base_distance*base_distance*base_distance*base_distance ); //W
 
-  double signal_amplitude = powerToAmp(received_power); //amp
-
   auto adc = radar.getADC();
-  int measurement = adc.convertSignal(signal_amplitude);
+  int measurement = adc.convertSignal(received_power);
   auto pulse_data = radar.generatePulseData({target});
   assert( double_equal(pulse_data.registry[bin_index], measurement, 1.0e-2) );
 

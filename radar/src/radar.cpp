@@ -474,8 +474,8 @@ PulseData Radar::generatePulseData(const TargetCollection& targets, bool signal_
 
     double amp_I = noise_amplitude + target_signal_I[n]; //amp
     double amp_Q = target_signal_Q[n]; //amp
-    double amplitude = sqrt( amp_I * amp_I + amp_Q * amp_Q ); //amp
-    new_registry[n] = adc.convertSignal(amplitude); //unit
+    double bin_power = amp_I * amp_I + amp_Q * amp_Q; //W
+    new_registry[n] = adc.convertSignal(bin_power); //unit
   }
 
   PulseData pulse_data(state_time, state.getBoresight(), move(new_registry));

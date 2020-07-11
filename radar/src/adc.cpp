@@ -53,10 +53,9 @@ double ADC::getSensitivity() const {
 }
 
 //unit
-unsigned short ADC::convertPower(double amplitude) const
-//amplitude: amp
+unsigned short ADC::convertPower(double power) const
+//power: W
 {
-  double power = amplitude * amplitude; //W
   if (power >= maximum_power)
     return (num_levels - 1); //unit
 
@@ -64,10 +63,9 @@ unsigned short ADC::convertPower(double amplitude) const
 }
 
 //unit
-unsigned short ADC::convertLogarithmic(double amplitude) const
-//Amplitude: amp
+unsigned short ADC::convertLogarithmic(double power) const
+//power: W
 {
-  double power = amplitude * amplitude;
   if (power >= maximum_power)
     return (num_levels - 1); //unit
   if (power < minimum_power)
@@ -77,15 +75,15 @@ unsigned short ADC::convertLogarithmic(double amplitude) const
 }
 
 //unit
-unsigned short ADC::convertSignal(double amplitude) const
-//Amplitude: amp
+unsigned short ADC::convertSignal(double power) const
+//power: W
 {
   switch(mode)
   {
     case ADCMode::Power:
-      return convertPower(amplitude); //unit
+      return convertPower(power); //unit
     case ADCMode::Logarithm:
-      return convertLogarithmic(amplitude); //unit
+      return convertLogarithmic(power); //unit
     default:
       return 0; //unit
   }

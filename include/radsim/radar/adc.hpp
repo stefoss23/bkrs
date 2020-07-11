@@ -20,11 +20,11 @@ class ADC
     double log_constant;    //unit, used for calculations
     int    num_levels;      //typical: 6 to 16 bits (64 to 65000 levels) 
 
-    unsigned short convertPower(double amplitude) const; //unit
-    //Amplitude: amp
+    unsigned short convertPower(double power) const; //unit
+    //power: W
 
-    unsigned short convertLogarithmic(double amplitude) const; //unit
-    //Amplitude: amp
+    unsigned short convertLogarithmic(double power) const; //unit
+    //Power: W
 
     void setLogarithmicMinimumPower(double power);
     //Power: W
@@ -40,8 +40,8 @@ class ADC
     int getNumLevels() const;
     double getSensitivity() const; //W
 
-    unsigned short convertSignal(double amplitude) const; //unit
-    //Amplitude: amp
+    unsigned short convertSignal(double power) const; //unit
+    //power: W
 };
 
 }
