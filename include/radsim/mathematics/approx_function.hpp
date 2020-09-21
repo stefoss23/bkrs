@@ -11,14 +11,11 @@ between values x_i and x_(i+1), the function g(x) is linear.
 
 In order to find i, the values x_(i+1) - x_i are constant. 
 
-This is commented in TechnicalDocument.pdf
-
 Use:
 To establish an approxfunction of the function f(x):
 1) Create a std::vector<T> entry of the values of x that are to be calulcated. 
-2) Calculate f(x) for all values of entry and store them in an std::vector<T> value. 
-3) Initiation:
-   ApproxFunctionType<T> g(entry, value)
+2) ApproxFunction<T> function = ApproxFunction(entry, value);
+3) T output = function.output(x);
 
 T can only be continuous values such as double, std::complex<double> or math_vector.
 */
