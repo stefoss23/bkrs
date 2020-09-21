@@ -41,6 +41,12 @@ The following lines of code produce the resultant sampled signal measurements fr
 
 using namespace radsim;
 
+void doSignalProcessing(vector<unsigned short>& data) {
+  /*
+     Do Digital Processing here ...
+  */
+}
+
 int main() {
   double simulation_time = 2.0 //seconds
 
@@ -55,7 +61,7 @@ int main() {
   while (radar.getSimTime() < simulation_time) {
     if (radar.dataReady()) {
       auto pulse_data = radar.getData();
-      vector<unsigned short>& reg = pulse_data.registry;
+      doSignalProcessing(pulse_data.registry);
     }
   }
   radar.stop();
@@ -63,7 +69,5 @@ int main() {
   return 0;
 }
 ```
-Each ```c++ std::vector reg``` is the result of a single pulse emission and reception cycle, similarly to the the above figure.. The signal measurements (*reg*) can be fed into a digital processing algorithm. This could initially be a Constant False Alarm Rate (CFAR) process as defined by the user to create per-scan detections, or *plots*, which again would be fed into a tracking algorithm. 
-
-BKRadsim is does not provide any digital processing assistance, but is a tool for its study and development. 
+Each ```c++ std::vector reg``` is the result of a single pulse emission and reception cycle, similarly to the the above figure.. The signal measurements (*pulse_data.registry*) can be fed into a digital processing algorithm. This could initially be a Constant False Alarm Rate (CFAR) process as defined by the user to create per-scan detections, or *plots*, which again would be fed into a tracking algorithm. 
 
