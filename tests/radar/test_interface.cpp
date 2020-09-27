@@ -112,7 +112,7 @@ void run_paused_continued() {
   while (com.getSimTime() < delta_time) {
     if (com.dataReady()) com.getData();
   }
-  com.stop();
+  /*com.stop();
   assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
 
   max_time += delta_time;
@@ -121,7 +121,7 @@ void run_paused_continued() {
     if (com.dataReady()) com.getData();
   }
   com.stop();
-  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );      
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );      */
 }
 
 

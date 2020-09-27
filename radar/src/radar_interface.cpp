@@ -74,7 +74,6 @@ RadarInterface::RadarInterface(const RadarConfig& config, TargetCollection targe
   sim_thread(NULL),
   allow_send_data(false),
   on(false),
-  has_run(false),
   statistics(false),
   time_step(dt),
   sim_time(0),
@@ -111,10 +110,6 @@ void RadarInterface::start(bool signal_override, double signal_strength) {
   if (sim_thread)
     throw logic_error(__PRETTY_FUNCTION__ + string(": cannot restart simulator without stopping first."));
 
-  if (has_run)
-    throw logic_error(__PRETTY_FUNCTION__ + string(": Interface obj can run simulations only once."));
-
-  has_run = true;
   on.store(true);
 
   sim_thread = new thread(simulationRunner, 
