@@ -95,17 +95,39 @@ void run_simulator() {
 }
 
 
-void run_wrong2() {
+void run_paused_continued() {
   RadarInterface com(config, {});
+  double delta_time = 0.25;
+  double max_time = 0.25;
+  
   com.start();
+  while (com.getSimTime() < delta_time) {
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
+
+  max_time += delta_time;
   com.start();
+  while (com.getSimTime() < delta_time) {
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
+
+  max_time += delta_time;
+  com.start();
+  while (com.getSimTime() < delta_time) {
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );      
 }
 
 
-void run_wrong4() {
+void run_wrong2() {
   RadarInterface com(config, {});
   com.start();
-  com.stop();
   com.start();
 }
 
@@ -116,8 +138,9 @@ int main(int argc , char ** argv) {
   const string config_file = string(argv[1]) + "/radar_configs/short_range_radar.txt";
   config = RadarConfigParser().parseFile( config_file );
   assert_throw<logic_error>(&run_wrong2);
-  assert_throw<logic_error>(&run_wrong4);
+  run_paused_continued();
   run_simulator();
+
 
   return 0;
 }
