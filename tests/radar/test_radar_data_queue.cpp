@@ -5,6 +5,8 @@
 #include <memory>
 #include <thread>
 
+#include <radsim/utils/test_utils.hpp>
+
 #include <radsim/utils/utils.hpp>
 
 #include <radsim/mathematics/math_vector.hpp>
@@ -114,6 +116,26 @@ void test_concurrence(bool slow_pop, bool slow_push) {
 }
 
 
+void test_empty_queue_exception() {
+  math_vector boresight = {1, 0, 0};
+
+  registry s1 = {1};
+  registry s2 = {1, 2};
+
+  unsigned short * ptr1 = s1.data();
+  unsigned short * ptr2 = s2.data();
+
+  RadarDataQueue queue;
+
+  queue.push_initial( PulseData(1.0, boresight, move(s1)) ); 
+  queue.push( PulseData(1.0, boresight, move(s2)) );
+  queue.size();
+  queue.pop();
+  queue.size();
+  queue.pop();
+}
+
+
 int main() {
 
   test_queue();
@@ -121,5 +143,6 @@ int main() {
   test_concurrence(false, true);
   test_concurrence(true, false);
   test_concurrence(true, true);
+  assert_throw<logic_error>(&test_empty_queue_exception);
   return 0;
 }
