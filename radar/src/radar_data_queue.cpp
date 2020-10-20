@@ -72,10 +72,15 @@ void RadarDataQueue::push_initial( PulseData data ) {
 
 
 void RadarDataQueue::push( PulseData data ) {
-  DataQueueNode * node = new DataQueueNode( move(data) );
-  tail->next = node;
-  tail = node;
-  num_nodes++;
+
+  if (pushed_initial) {
+    DataQueueNode * node = new DataQueueNode( move(data) );
+    tail->next = node;
+    tail = node;
+    num_nodes++;
+  }
+  else
+    throw logic_error(__PRETTY_FUNCTION__ + string(": 'push_initial' must be called first."));
 }
 
 }
