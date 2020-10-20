@@ -30,6 +30,7 @@ class RadarDataQueue {
   DataQueueNode * head;
   DataQueueNode * tail;
   std::atomic<size_t> num_nodes;
+  bool pushed_initial;
   size_t num_nodes_main; //used for counting nodes in the main thread
 
   void pop__();

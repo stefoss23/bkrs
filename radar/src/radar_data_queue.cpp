@@ -16,6 +16,7 @@ DataQueueNode::DataQueueNode(PulseData data_arg) :
 RadarDataQueue::RadarDataQueue() :
   head(NULL),
   tail(NULL),
+  pushed_initial(false),
   num_nodes( 0 ),
   num_nodes_main(0)
 {}
@@ -57,6 +58,12 @@ size_t RadarDataQueue::size() {
 
 
 void RadarDataQueue::push_initial( PulseData data ) {
+
+  if (pushed_initial)
+    throw logic_error(__PRETTY_FUNCTION__ + string(": this function can only be called once."));
+
+  pushed_initial = true;
+
   DataQueueNode * node = new DataQueueNode( move(data) );
   head = node;
   tail = node;
