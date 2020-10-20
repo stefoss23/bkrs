@@ -136,6 +136,22 @@ void test_empty_queue_exception() {
 }
 
 
+void test_pushed_initial_twice() {
+  math_vector boresight = {1, 0, 0};
+
+  registry s1 = {1};
+  registry s2 = {1, 2};
+
+  unsigned short * ptr1 = s1.data();
+  unsigned short * ptr2 = s2.data();
+
+  RadarDataQueue queue;
+
+  queue.push_initial( PulseData(1.0, boresight, move(s1)) ); 
+  queue.push_initial( PulseData(1.0, boresight, move(s2)) ); 
+}
+
+
 int main() {
 
   test_queue();
@@ -144,5 +160,6 @@ int main() {
   test_concurrence(true, false);
   test_concurrence(true, true);
   assert_throw<logic_error>(&test_empty_queue_exception);
+  assert_throw<logic_error>(&test_pushed_initial_twice);
   return 0;
 }
