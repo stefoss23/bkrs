@@ -124,7 +124,6 @@ void run_paused_continued() {
   }
   com.stop();
   assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
-
   
   max_time += delta_time;
   Timer timer;
@@ -134,7 +133,7 @@ void run_paused_continued() {
   }
   com.stop();
   cout << "Elapsed: " << timer.elapsed() << endl;
-  assert( timer.elapsed() < 0.1 );
+  assert( double_equal(timer.elapsed(), delta_time, 0.4e-1) );
 }
 
 
