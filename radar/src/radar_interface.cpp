@@ -20,15 +20,22 @@ namespace {
                         atomic<bool>& allow_send_data, 
                         bool signal_override, 
                         double signal_strength,
+                        bool initiated,
                         bool statistics) {
 
-    radar.reset(0);  //sim_time reset to zero
+    if (!initiated) {
+      radar.reset(0);  //sim_time reset to zero
+    }
+
     double sim_check = time_step; //s, 
     double start_time = radar.getCurrentTime();
     sim_time_atomic.store( start_time ); //s
 
     //If the queue does not contain some elements, it may falter during oepration
-    queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
+    if (!initiated) {
+      queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
+      initiated = true;
+    }
 
     allow_send_data.store(true);  
 
@@ -75,6 +82,7 @@ RadarInterface::RadarInterface(const RadarConfig& config, TargetCollection targe
   allow_send_data(false),
   on(false),
   statistics(false),
+  initiated(false),
   time_step(dt),
   sim_time(0),
   queue_size(0)
@@ -121,8 +129,11 @@ void RadarInterface::start(bool signal_override, double signal_strength) {
                           ref(allow_send_data), 
                           signal_override, 
                           signal_strength, 
+                          initiated,
                           statistics);
 
+  initiated = true;
+  
 }
 
 
