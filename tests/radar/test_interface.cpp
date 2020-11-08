@@ -107,9 +107,11 @@ void run_paused_continued() {
   com.stop();
   assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
 
+  int old_time = max_time;
   max_time += delta_time;
   com.start();
   while (com.getSimTime() < delta_time) {
+    assert(com.getSimTime() >= old_time);
     if (com.dataReady()) com.getData();
   }
   com.stop();
@@ -117,11 +119,22 @@ void run_paused_continued() {
 
   max_time += delta_time;
   com.start();
-  while (com.getSimTime() < delta_time) {
+  while (com.getSimTime() < delta_time) {   
     if (com.dataReady()) com.getData();
   }
   com.stop();
   assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
+
+  
+  max_time += delta_time;
+  Timer timer;
+  com.start();
+  while (com.getSimTime() < max_time) {
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  cout << "Elapsed: " << timer.elapsed() << endl;
+  assert( timer.elapsed() < 0.1 );
 }
 
 
