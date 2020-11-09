@@ -96,7 +96,7 @@ void run_simulator() {
 
 
 void run_paused_continued() {
-  RadarInterface com(config, {});
+  RadarInterface com(config, {}, 0.02);
   double delta_time = 0.25;
   double max_time = 0.25;
   
@@ -132,8 +132,8 @@ void run_paused_continued() {
     if (com.dataReady()) com.getData();
   }
   com.stop();
-  cout << "Elapsed: " << timer.elapsed() << endl;
-  assert( double_equal(timer.elapsed(), delta_time, 0.4e-1) );
+  double elapsed_time = timer.elapsed();
+  assert( double_equal(elapsed_time, delta_time, 2.0e-1) );
 }
 
 
