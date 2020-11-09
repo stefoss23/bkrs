@@ -110,7 +110,7 @@ void run_paused_continued() {
   int old_time = max_time;
   max_time += delta_time;
   com.start();
-  while (com.getSimTime() < delta_time) {
+  while (com.getSimTime() < max_time) {
     assert(com.getSimTime() >= old_time);
     if (com.dataReady()) com.getData();
   }
@@ -119,7 +119,7 @@ void run_paused_continued() {
 
   max_time += delta_time;
   com.start();
-  while (com.getSimTime() < delta_time) {   
+  while (com.getSimTime() < max_time) {   
     if (com.dataReady()) com.getData();
   }
   com.stop();
@@ -149,9 +149,9 @@ int main(int argc , char ** argv) {
 
   const string config_file = string(argv[1]) + "/radar_configs/short_range_radar.txt";
   config = RadarConfigParser().parseFile( config_file );
-  assert_throw<logic_error>(&run_wrong2);
+  //assert_throw<logic_error>(&run_wrong2);
   run_paused_continued();
-  run_simulator();
+  //run_simulator();
 
 
   return 0;

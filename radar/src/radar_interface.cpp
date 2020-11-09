@@ -29,6 +29,7 @@ namespace {
 
     double sim_check = time_step; //s, 
     double start_time = radar.getCurrentTime();
+    cout << "-- start time: " << start_time << endl;
     sim_time_atomic.store( start_time ); //s
 
     //If the queue does not contain some elements, it may falter during oepration
@@ -56,7 +57,11 @@ namespace {
 
       work_time += (timer.elapsed() - period_start);
 
-      while (timer.elapsed() < radar.getCurrentTime()) {} //busy-wait
+      double time_status = timer.elapsed() + start_time;
+      while (timer.elapsed() < radar.getCurrentTime()) {
+        time_status = timer.elapsed() + start_time;
+      } //busy-wait
+      //while (timer.elapsed() < radar.getCurrentTime()) {}
 
       sim_check += time_step; //s
     }
