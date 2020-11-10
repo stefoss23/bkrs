@@ -39,8 +39,8 @@ class RadarInterface {
   std::atomic<bool> allow_send_data; //allows for sending data from sim to process    
   std::atomic<bool> on;            //on tells the sim_runner to continue running
 
-  bool has_run;       //simulator has run once, and cannot restart
   bool statistics;   //If true, at end of a sim_run, Percentage work time is printed, 
+  bool initiated;  //if true, has initiated the sim
   double time_step;    //s, time_step in simulation before updating sim_time;
   size_t queue_size; //number of elements in queue is at least this number
 

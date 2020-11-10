@@ -20,16 +20,18 @@ namespace {
                         atomic<bool>& allow_send_data, 
                         bool signal_override, 
                         double signal_strength,
+                        bool initiated,
                         bool statistics) {
 
-    radar.reset(0);  //sim_time reset to zero
+    if (!initiated) {
+      radar.reset(0);  //sim_time reset to zero
+      queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
+      initiated = true;
+    }
+
     double sim_check = time_step; //s, 
     double start_time = radar.getCurrentTime();
     sim_time_atomic.store( start_time ); //s
-
-    //If the queue does not contain some elements, it may falter during oepration
-    queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
-
     allow_send_data.store(true);  
 
     double work_time = 0; //s, The time the thread has worked without busy-wait
@@ -49,7 +51,10 @@ namespace {
 
       work_time += (timer.elapsed() - period_start);
 
-      while (timer.elapsed() < radar.getCurrentTime()) {} //busy-wait
+      double time_status = timer.elapsed() + start_time;
+      while (time_status < radar.getCurrentTime()) {
+        time_status = timer.elapsed() + start_time;
+      } //busy-wait
 
       sim_check += time_step; //s
     }
@@ -74,8 +79,8 @@ RadarInterface::RadarInterface(const RadarConfig& config, TargetCollection targe
   sim_thread(NULL),
   allow_send_data(false),
   on(false),
-  has_run(false),
   statistics(false),
+  initiated(false),
   time_step(dt),
   sim_time(0),
   queue_size(0)
@@ -111,10 +116,6 @@ void RadarInterface::start(bool signal_override, double signal_strength) {
   if (sim_thread)
     throw logic_error(__PRETTY_FUNCTION__ + string(": cannot restart simulator without stopping first."));
 
-  if (has_run)
-    throw logic_error(__PRETTY_FUNCTION__ + string(": Interface obj can run simulations only once."));
-
-  has_run = true;
   on.store(true);
 
   sim_thread = new thread(simulationRunner, 
@@ -126,8 +127,11 @@ void RadarInterface::start(bool signal_override, double signal_strength) {
                           ref(allow_send_data), 
                           signal_override, 
                           signal_strength, 
+                          initiated,
                           statistics);
 
+  initiated = true;
+  
 }
 
 

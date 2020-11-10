@@ -95,17 +95,51 @@ void run_simulator() {
 }
 
 
-void run_wrong2() {
-  RadarInterface com(config, {});
+void run_paused_continued() {
+  RadarInterface com(config, {}, 0.02);
+  double delta_time = 0.25;
+  double max_time = 0.25;
+  
   com.start();
+  while (com.getSimTime() < delta_time) {
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
+
+  int old_time = max_time;
+  max_time += delta_time;
   com.start();
+  while (com.getSimTime() < max_time) {
+    assert(com.getSimTime() >= old_time);
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
+
+  max_time += delta_time;
+  com.start();
+  while (com.getSimTime() < max_time) {   
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  assert( !double_equal(com.getSimTime(), max_time, 1.0e-1) );
+  
+  max_time += delta_time;
+  Timer timer;
+  com.start();
+  while (com.getSimTime() < max_time) {
+    if (com.dataReady()) com.getData();
+  }
+  com.stop();
+  double elapsed_time = timer.elapsed();
+  assert( double_equal(elapsed_time, delta_time, 2.0e-1) );
 }
 
 
-void run_wrong4() {
+void run_wrong2() {
   RadarInterface com(config, {});
   com.start();
-  com.stop();
   com.start();
 }
 
@@ -116,8 +150,9 @@ int main(int argc , char ** argv) {
   const string config_file = string(argv[1]) + "/radar_configs/short_range_radar.txt";
   config = RadarConfigParser().parseFile( config_file );
   assert_throw<logic_error>(&run_wrong2);
-  assert_throw<logic_error>(&run_wrong4);
+  run_paused_continued();
   run_simulator();
+
 
   return 0;
 }
