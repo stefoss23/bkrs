@@ -25,18 +25,13 @@ namespace {
 
     if (!initiated) {
       radar.reset(0);  //sim_time reset to zero
+      queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
+      initiated = true;
     }
 
     double sim_check = time_step; //s, 
     double start_time = radar.getCurrentTime();
     sim_time_atomic.store( start_time ); //s
-
-    //If the queue does not contain some elements, it may falter during oepration
-    if (!initiated) {
-      queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
-      initiated = true;
-    }
-
     allow_send_data.store(true);  
 
     double work_time = 0; //s, The time the thread has worked without busy-wait
@@ -60,7 +55,6 @@ namespace {
       while (time_status < radar.getCurrentTime()) {
         time_status = timer.elapsed() + start_time;
       } //busy-wait
-      //while (timer.elapsed() < radar.getCurrentTime()) {}
 
       sim_check += time_step; //s
     }

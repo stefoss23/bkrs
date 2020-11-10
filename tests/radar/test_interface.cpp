@@ -149,9 +149,9 @@ int main(int argc , char ** argv) {
 
   const string config_file = string(argv[1]) + "/radar_configs/short_range_radar.txt";
   config = RadarConfigParser().parseFile( config_file );
-  //assert_throw<logic_error>(&run_wrong2);
+  assert_throw<logic_error>(&run_wrong2);
   run_paused_continued();
-  //run_simulator();
+  run_simulator();
 
 
   return 0;
