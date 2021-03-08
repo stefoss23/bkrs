@@ -29,17 +29,17 @@ add_library(rads SHARED  src/utils/utils.cpp
                          src/mathematics/fourier.cpp
                          src/mathematics/math_vector.cpp
 
-                         radar/src/target.cpp
-                         radar/src/adc.cpp
-                         radar/src/radar_config_parser.cpp
-                         radar/src/pulse_data.cpp
-                         radar/src/radar_state.cpp
-                         radar/src/radar.cpp
-                         radar/src/radar_config.cpp
-                         radar/src/bandpass_filter.cpp
-                         radar/src/beam_pattern.cpp
-                         radar/src/radar_data_queue.cpp
-                         radar/src/radar_interface.cpp
+                         src/radar/target.cpp
+                         src/radar/adc.cpp
+                         src/radar/radar_config_parser.cpp
+                         src/radar/pulse_data.cpp
+                         src/radar/radar_state.cpp
+                         src/radar/radar.cpp
+                         src/radar/radar_config.cpp
+                         src/radar/bandpass_filter.cpp
+                         src/radar/beam_pattern.cpp
+                         src/radar/radar_data_queue.cpp
+                         src/radar/radar_interface.cpp
            )
 target_link_libraries(rads pthread)
 install(TARGETS rads DESTINATION "lib")
