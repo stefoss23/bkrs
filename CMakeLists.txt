@@ -20,9 +20,9 @@ set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/test-data)
 
-add_library(rads SHARED  utils/src/utils.cpp
-                         utils/src/rng.cpp
-                         utils/src/timer.cpp
+add_library(rads SHARED  src/utils/utils.cpp
+                         src/utils/rng.cpp
+                         src/utils/timer.cpp
            
                          mathematics/src/mathutils.cpp
                          mathematics/src/approx_function.cpp
