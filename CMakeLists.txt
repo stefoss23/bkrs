@@ -24,10 +24,10 @@ add_library(rads SHARED  src/utils/utils.cpp
                          src/utils/rng.cpp
                          src/utils/timer.cpp
            
-                         mathematics/src/mathutils.cpp
-                         mathematics/src/approx_function.cpp
-                         mathematics/src/fourier.cpp
-                         mathematics/src/math_vector.cpp
+                         src/mathematics/mathutils.cpp
+                         src/mathematics/approx_function.cpp
+                         src/mathematics/fourier.cpp
+                         src/mathematics/math_vector.cpp
 
                          radar/src/target.cpp
                          radar/src/adc.cpp
