@@ -175,6 +175,12 @@ void RadarInterface::stop() {
   }
 }
 
+void RadarInterface::reset(int t) 
+//t: s
+{
+  
+}
+
 //m
 double RadarInterface::getRange(int bin_index) const {
   return min_range + bin_index * range_bin; //m

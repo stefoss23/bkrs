@@ -68,6 +68,8 @@ class RadarInterface {
     //signal_strength = 0
 
     void stop();
+    void reset(int t = 0);
+    //t: s
     
     double getSimTime() const; //s
 

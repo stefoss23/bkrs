@@ -137,6 +137,45 @@ void run_paused_continued() {
 }
 
 
+void run_reset() {
+  RadarInterface com(config, {}, 0.02);
+  double max_time = 0.25;
+
+  com.start();
+  while (com.getSimTime() < max_time) {
+  }
+  com.stop();
+
+  assert( com.getSimTime() > 0);
+  assert( com.dataReady() );
+  
+  com.reset();
+  assert( com.getSimTime() == 0);
+  assert( !com.dataReady() );
+
+  com.start();
+  while (com.getSimTime() < max_time) {
+  }
+  com.stop();
+
+  assert( com.getSimTime() > 0);
+  assert( com.dataReady() );
+
+  com.reset(3.0);
+  assert( com.getSimTime() == 3.0);
+  assert( !com.dataReady() );
+
+  max_time = 3.25;
+
+  com.start();
+  while (com.getSimTime() < max_time) {
+  }
+  com.stop();
+
+  assert( com.getSimTime() > max_time);
+}
+
+
 void run_wrong2() {
   RadarInterface com(config, {});
   com.start();
@@ -151,6 +190,7 @@ int main(int argc , char ** argv) {
   config = RadarConfigParser().parseFile( config_file );
   assert_throw<logic_error>(&run_wrong2);
   run_paused_continued();
+  run_reset();
   run_simulator();
 
 
