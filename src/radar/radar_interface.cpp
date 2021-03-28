@@ -178,7 +178,8 @@ void RadarInterface::stop() {
 void RadarInterface::reset(int t) 
 //t: s
 {
-  
+  if (sim_thread)
+    throw logic_error(__PRETTY_FUNCTION__ + string(": cannot reset simulator without stopping first."));  
 }
 
 //m
