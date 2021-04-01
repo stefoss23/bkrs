@@ -137,12 +137,7 @@ void RadarInterface::start(bool signal_override, double signal_strength) {
 
 //s
 double RadarInterface::getSimTime() const {
-  if (allow_send_data.load()) {
-    double t = sim_time.load();
-    return t;
-  }
-  else
-    return 0.0;
+  return sim_time.load();
 }
 
 
