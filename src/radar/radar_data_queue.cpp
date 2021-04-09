@@ -46,7 +46,7 @@ PulseData RadarDataQueue::pop() {
 }
 
 
-bool RadarDataQueue::empty() {
+bool RadarDataQueue::isEmpty() {
   return (head == NULL);
 }
 

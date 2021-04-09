@@ -42,7 +42,7 @@ class RadarDataQueue {
 
     PulseData pop(); //One ABOLUTELY has to check with size() before using this function!!!
 
-    bool empty();
+    bool isEmpty();
     size_t size(); //the number of elements is equal or greater than the return value
     void push_initial( PulseData data );  //Used only if queue is empty
     void push( PulseData data ); //Cannot be used for initial push, queue cannot be empty
