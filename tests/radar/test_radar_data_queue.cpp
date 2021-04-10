@@ -69,6 +69,31 @@ void test_queue() {
 
 }
 
+void test_empty() {
+  math_vector boresight = {1, 0, 0};
+
+  registry s1 = {1};
+  registry s2 = {1, 2};
+  registry s3 = {1, 2, 3};
+
+  RadarDataQueue queue;
+  queue.push_initial( PulseData(1.0, boresight, move(s1)) );
+  queue.push( PulseData(1.0, boresight, move(s2)) );
+  queue.push( PulseData(1.0, boresight, move(s3)) );  
+
+  assert( !queue.isEmpty() );
+  
+  queue.empty();
+
+  assert( queue.isEmpty() );
+
+  queue.push_initial( PulseData(1.0, boresight, move(s1)) );
+  queue.push( PulseData(1.0, boresight, move(s2)) );
+  queue.push( PulseData(1.0, boresight, move(s3)) );  
+
+  assert( !queue.isEmpty() );  
+}
+
 void slow_function() {
   for (int i = 0; i < 10000; i++)
     double j = i * 10.2 + 0.67;
@@ -170,6 +195,7 @@ void test_not_pushed_initial() {
 int main() {
 
   test_queue();
+  test_empty();
   test_concurrence(false, false);
   test_concurrence(false, true);
   test_concurrence(true, false);

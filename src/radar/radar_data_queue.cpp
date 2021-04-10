@@ -23,8 +23,7 @@ RadarDataQueue::RadarDataQueue() :
 
 
 RadarDataQueue::~RadarDataQueue() {
-  while (head)
-    pop__();
+  empty();
 }
 
 void RadarDataQueue::pop__() {
@@ -50,6 +49,11 @@ bool RadarDataQueue::isEmpty() {
   return (head == NULL);
 }
 
+void RadarDataQueue::empty() {
+  while (head)
+    pop__();
+  pushed_initial = false;
+}
 
 size_t RadarDataQueue::size() {
   num_nodes_main = num_nodes.load();
