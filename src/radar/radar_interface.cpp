@@ -180,7 +180,9 @@ void RadarInterface::reset(int t)
   if (sim_thread)
     throw logic_error(__PRETTY_FUNCTION__ + string(": cannot reset simulator without stopping first."));
 
-  //queue.empty();
+  queue.empty();
+  queue_size = 0;
+  initiated = false;
   radar.reset(t);
   sim_time.store(t);
   
