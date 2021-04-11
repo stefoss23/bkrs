@@ -37,10 +37,10 @@ void test_queue() {
 
   RadarDataQueue queue;
 
-  assert( queue.empty() );
+  assert( queue.isEmpty() );
   assert( queue.size() == 0 );
   queue.push_initial( PulseData(1.0, boresight, move(s1)) );  // ----- queue = {p1}
-  assert( !queue.empty() );
+  assert( !queue.isEmpty() );
   assert( queue.size() == 1 );
   queue.push( PulseData(2.0, boresight, move(s2)) );  // ----- queue = {p1, p2}
   assert( queue.size() );
@@ -48,14 +48,14 @@ void test_queue() {
   assert( pkg_1.registry.data() == ptr1 );
   assert( pkg_1.hasOriginalRegistry() );
   assert( queue.size() == 1 );
-  assert( !queue.empty() );
+  assert( !queue.isEmpty() );
   queue.push( PulseData(3.0, boresight, move(s3)) ); // ------ queue = {p2, p3}
   assert( queue.size() == 2 );
   auto pkg_2 = queue.pop(); // ---- queue = {p3}
   assert( pkg_2.registry.data() == ptr2 );
   assert( queue.size() == 1);
   queue.push( PulseData(4.0, boresight, move(s4)) ); // ------ queue = {p3, p4}
-  assert( !queue.empty() );
+  assert( !queue.isEmpty() );
   assert( queue.size() == 2 );
   queue.push( PulseData(5.0, boresight, move(s5)) ); // ------ queue = {p3, p4, p5}
   assert( queue.size() == 3 );
@@ -67,6 +67,31 @@ void test_queue() {
   assert( pkg_4.registry.data() == ptr4 );
   assert( queue.size() == 2);
 
+}
+
+void test_empty() {
+  math_vector boresight = {1, 0, 0};
+
+  registry s1 = {1};
+  registry s2 = {1, 2};
+  registry s3 = {1, 2, 3};
+
+  RadarDataQueue queue;
+  queue.push_initial( PulseData(1.0, boresight, move(s1)) );
+  queue.push( PulseData(1.0, boresight, move(s2)) );
+  queue.push( PulseData(1.0, boresight, move(s3)) );  
+
+  assert( !queue.isEmpty() );
+  
+  queue.empty();
+
+  assert( queue.isEmpty() );
+
+  queue.push_initial( PulseData(1.0, boresight, move(s1)) );
+  queue.push( PulseData(1.0, boresight, move(s2)) );
+  queue.push( PulseData(1.0, boresight, move(s3)) );  
+
+  assert( !queue.isEmpty() );  
 }
 
 void slow_function() {
@@ -170,6 +195,7 @@ void test_not_pushed_initial() {
 int main() {
 
   test_queue();
+  test_empty();
   test_concurrence(false, false);
   test_concurrence(false, true);
   test_concurrence(true, false);

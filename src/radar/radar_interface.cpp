@@ -146,8 +146,7 @@ bool RadarInterface::dataReady() {
   if (queue_size > 1) 
     return true;
 
-  if (allow_send_data.load())
-    queue_size = queue.size();
+  queue_size = queue.size();
 
   return (queue_size > 1);
 }
@@ -173,6 +172,20 @@ void RadarInterface::stop() {
     delete sim_thread;
     sim_thread = NULL;
   }
+}
+
+void RadarInterface::reset(int t) 
+//t: s
+{
+  if (sim_thread)
+    throw logic_error(__PRETTY_FUNCTION__ + string(": cannot reset simulator without stopping first."));
+
+  queue.empty();
+  queue_size = 0;
+  initiated = false;
+  radar.reset(t);
+  sim_time.store(t);
+  
 }
 
 //m
