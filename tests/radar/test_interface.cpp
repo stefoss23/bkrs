@@ -99,25 +99,39 @@ void run_paused_continued() {
   RadarInterface com(config, {}, 0.02);
   double delta_time = 0.25;
   double max_time = 0.25;
-  
+
+  // --- First interval -----------------------
   com.start();
   while (com.getSimTime() < delta_time) {
-    if (com.dataReady()) com.getData();
   }
   com.stop();
+  assert( com.dataReady() );
+  auto data = com.getData();
+  while (com.dataReady()) data = com.getData(); //getting the last data package of the queue
+
+  assert (!com.dataReady());
   assert( double_equal(com.getSimTime(), max_time, 1.0e-1) );
 
   int old_time = max_time;
   max_time += delta_time;
+
+  // ---- Second Interval ----------------------
   com.start();
   while (com.getSimTime() < max_time) {
     assert(com.getSimTime() >= old_time);
-    if (com.dataReady()) com.getData();
   }
   com.stop();
   assert( double_equal(com.getSimTime(), max_time, 1.0e-1) );
 
+  com.dataReady();
+  auto data1 = com.getData(); // getting the first data package of the queue
+  double prt = data1.getStartTime() - data.getStartTime(); //comparing the last package of the first interval and the 
+                                                           //first package of the 2nd interval. Time difference should be PRT
+  assert( double_equal( prt, config.getPRT(), 1e-4 ) );
+  
   max_time += delta_time;
+
+  // --- Third Interval -------------------------
   com.start();
   while (com.getSimTime() < max_time) {   
     if (com.dataReady()) com.getData();
@@ -127,6 +141,8 @@ void run_paused_continued() {
   
   max_time += delta_time;
   Timer timer;
+
+  // --- Fourth Interval -------------------------
   com.start();
   while (com.getSimTime() < max_time) {
     if (com.dataReady()) com.getData();
