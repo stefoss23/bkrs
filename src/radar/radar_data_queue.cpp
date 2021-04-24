@@ -61,7 +61,7 @@ size_t RadarDataQueue::size() {
 }
 
 
-void RadarDataQueue::push_initial( PulseData data ) {
+void RadarDataQueue::pushInitial( PulseData data ) {
 
   if (pushed_initial)
     throw logic_error(__PRETTY_FUNCTION__ + string(": this function can only be called once."));

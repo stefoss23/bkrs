@@ -39,7 +39,7 @@ void test_queue() {
 
   assert( queue.isEmpty() );
   assert( queue.size() == 0 );
-  queue.push_initial( PulseData(1.0, boresight, move(s1)) );  // ----- queue = {p1}
+  queue.pushInitial( PulseData(1.0, boresight, move(s1)) );  // ----- queue = {p1}
   assert( !queue.isEmpty() );
   assert( queue.size() == 1 );
   queue.push( PulseData(2.0, boresight, move(s2)) );  // ----- queue = {p1, p2}
@@ -77,7 +77,7 @@ void test_empty() {
   registry s3 = {1, 2, 3};
 
   RadarDataQueue queue;
-  queue.push_initial( PulseData(1.0, boresight, move(s1)) );
+  queue.pushInitial( PulseData(1.0, boresight, move(s1)) );
   queue.push( PulseData(1.0, boresight, move(s2)) );
   queue.push( PulseData(1.0, boresight, move(s3)) );  
 
@@ -87,7 +87,7 @@ void test_empty() {
 
   assert( queue.isEmpty() );
 
-  queue.push_initial( PulseData(1.0, boresight, move(s1)) );
+  queue.pushInitial( PulseData(1.0, boresight, move(s1)) );
   queue.push( PulseData(1.0, boresight, move(s2)) );
   queue.push( PulseData(1.0, boresight, move(s3)) );  
 
@@ -117,7 +117,7 @@ void test_concurrence(bool slow_pop, bool slow_push) {
   RadarDataQueue queue;
   bool on = true;
 
-  queue.push_initial( PulseData(-1.0, (math_vector){1.0, 1.0, 1.0}, vector<unsigned short>(0)) );
+  queue.pushInitial( PulseData(-1.0, (math_vector){1.0, 1.0, 1.0}, vector<unsigned short>(0)) );
 
   thread push_thread(push_runner, &queue, &slow_push, &on);
 
@@ -152,7 +152,7 @@ void test_empty_queue_exception() {
 
   RadarDataQueue queue;
 
-  queue.push_initial( PulseData(1.0, boresight, move(s1)) ); 
+  queue.pushInitial( PulseData(1.0, boresight, move(s1)) ); 
   queue.push( PulseData(1.0, boresight, move(s2)) );
   queue.size();
   queue.pop();
@@ -172,8 +172,8 @@ void test_pushed_initial_twice() {
 
   RadarDataQueue queue;
 
-  queue.push_initial( PulseData(1.0, boresight, move(s1)) ); 
-  queue.push_initial( PulseData(1.0, boresight, move(s2)) ); 
+  queue.pushInitial( PulseData(1.0, boresight, move(s1)) ); 
+  queue.pushInitial( PulseData(1.0, boresight, move(s2)) ); 
 }
 
 
