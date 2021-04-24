@@ -45,7 +45,7 @@ class RadarDataQueue {
     bool isEmpty();
     void empty(); //empties the dataqueue
     size_t size(); //the number of elements is equal or greater than the return value
-    void push_initial( PulseData data );  //Used only if queue is empty
+    void pushInitial( PulseData data );  //Used only if queue is empty
     void push( PulseData data ); //Cannot be used for initial push, queue cannot be empty
     
 };

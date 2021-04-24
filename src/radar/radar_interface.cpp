@@ -25,7 +25,7 @@ namespace {
 
     if (!initiated) {
       radar.reset(0);  //sim_time reset to zero
-      queue.push_initial( radar.generatePulseData(targets, signal_override, signal_strength) );
+      queue.pushInitial( radar.generatePulseData(targets, signal_override, signal_strength) );
       initiated = true;
     }
 
