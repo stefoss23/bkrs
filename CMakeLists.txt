@@ -23,6 +23,7 @@ set(TEST_DIR ${CMAKE_SOURCE_DIR}/test-data)
 add_library(rads SHARED  src/utils/utils.cpp
                          src/utils/rng.cpp
                          src/utils/timer.cpp
+                         src/utils/assert.cpp
            
                          src/mathematics/mathutils.cpp
                          src/mathematics/approx_function.cpp
