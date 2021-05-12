@@ -1,13 +1,11 @@
 /* This is the first test of real time processing with rads. */
 
-
-#include <assert.h>
-
 #include <vector>
 #include <memory>
 #include <exception>
 
 #include <radsim/utils/test_utils.hpp>
+#include <radsim/utils/assert.hpp>
 #include <radsim/utils/timer.hpp>
 
 #include <radsim/mathematics/math_vector.hpp>
@@ -43,8 +41,8 @@ void run_simulator() {
   com.setAddNoise(false);
   com.setStatistics(true);
 
-  assert( complex_equal(com.getRange(200), radar.getRange(200), 1e-4) );
-  assert( complex_equal(com.getRange(400), radar.getRange(400), 1e-4) );
+  assertComplexEqual(com.getRange(200), radar.getRange(200), 1e-4);
+  assertComplexEqual(com.getRange(400), radar.getRange(400), 1e-4);
 
   double sim_time = 0; //s
 
@@ -61,23 +59,23 @@ void run_simulator() {
 
     if (com.dataReady()) { 
       auto data = com.getData();
-      assert( data.getStartTime() > test_data_time );
+      assertTrue( data.getStartTime() > test_data_time );
       test_data_time = data.getStartTime();  //s    
 
       vector<unsigned short> registry = move(data.registry);
 
-      assert( registry[400] == 0 );
-      assert( registry[200] == 0 );
+      assertIntEqual( registry[400], 0 );
+      assertIntEqual( registry[200], 0 );
       if (pulse_indx > 0) {
-        assert( registry[253] > 100 );
-        assert( registry[254] > 100 );
+        assertTrue( registry[253] > 100 );
+        assertTrue( registry[254] > 100 );
       }
       else {
-        assert( registry[253] == 0 );  //the target is begyond unambiguous range in pulse 0
-        assert( registry[254] == 0 );
+        assertIntEqual( registry[253], 0 );  //the target is begyond unambiguous range in pulse 0
+        assertIntEqual( registry[254], 0 );
       }
 
-      assert( data.getBoresight() == boresight );
+      assertTrue( data.getBoresight() == boresight );
       pulse_indx++;
 
     }
@@ -105,12 +103,12 @@ void run_paused_continued() {
   while (com.getSimTime() < delta_time) {
   }
   com.stop();
-  assert( com.dataReady() );
+  assertTrue( com.dataReady() );
   auto data = com.getData();
   while (com.dataReady()) data = com.getData(); //getting the last data package of the queue
 
-  assert (!com.dataReady());
-  assert( double_equal(com.getSimTime(), max_time, 1.0e-1) );
+  assertFalse (com.dataReady());
+  assertDoubleEqual( com.getSimTime(), max_time, 1.0e-1 );
 
   int old_time = max_time;
   max_time += delta_time;
@@ -118,16 +116,16 @@ void run_paused_continued() {
   // ---- Second Interval ----------------------
   com.start();
   while (com.getSimTime() < max_time) {
-    assert(com.getSimTime() >= old_time);
+    assertTrue(com.getSimTime() >= old_time);
   }
   com.stop();
-  assert( double_equal(com.getSimTime(), max_time, 1.0e-1) );
+  assertDoubleEqual( com.getSimTime(), max_time, 1.0e-1 );
 
   com.dataReady();
   auto data1 = com.getData(); // getting the first data package of the queue
   double prt = data1.getStartTime() - data.getStartTime(); //comparing the last package of the first interval and the 
                                                            //first package of the 2nd interval. Time difference should be PRT
-  assert( double_equal( prt, config.getPRT(), 1e-4 ) );
+  assertDoubleEqual( prt, config.getPRT(), 1e-4 );
   
   max_time += delta_time;
 
@@ -137,7 +135,7 @@ void run_paused_continued() {
     if (com.dataReady()) com.getData();
   }
   com.stop();
-  assert( double_equal(com.getSimTime(), max_time, 1.0e-1) );
+  assertDoubleEqual( com.getSimTime(), max_time, 1.0e-1 );
   
   max_time += delta_time;
   Timer timer;
@@ -149,7 +147,7 @@ void run_paused_continued() {
   }
   com.stop();
   double elapsed_time = timer.elapsed();
-  assert( double_equal(elapsed_time, delta_time, 2.0e-1) );
+  assertDoubleEqual( elapsed_time, delta_time, 2.0e-1 );
 }
 
 
@@ -162,24 +160,24 @@ void run_reset() {
   }
   com.stop();
 
-  assert( com.getSimTime() > 0);
-  assert( com.dataReady() );
+  assertTrue( com.getSimTime() > 0);
+  assertTrue( com.dataReady() );
   
   com.reset();
-  assert( com.getSimTime() == 0);
-  assert( !com.dataReady() );
+  assertTrue( com.getSimTime() == 0);
+  assertFalse( com.dataReady() );
 
   com.start();
   while (com.getSimTime() < max_time) {
   }
   com.stop();
 
-  assert( com.getSimTime() > 0);
-  assert( com.dataReady() );
+  assertTrue( com.getSimTime() > 0);
+  assertTrue( com.dataReady() );
 
   com.reset(3.0);
-  assert( com.getSimTime() == 3.0);
-  assert( !com.dataReady() );
+  assertTrue( com.getSimTime() == 3.0);
+  assertFalse( com.dataReady() );
 
   max_time = 3.25;
 
@@ -188,7 +186,7 @@ void run_reset() {
   }
   com.stop();
 
-  assert( com.getSimTime() > max_time);
+  assertTrue( com.getSimTime() > max_time);
 }
 
 
