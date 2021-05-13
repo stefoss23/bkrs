@@ -3,6 +3,7 @@
 foreach (test   test_utils
                 test_rng
                 test_timer
+                test_assert
     )
     add_executable(${test} utils/${test}.cpp)
     target_link_libraries(${test} rads )
