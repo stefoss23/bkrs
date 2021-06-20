@@ -33,6 +33,16 @@ void test_assert_true_false() {
   assertFalse(false);
 }
 
+
+void throw_logic_error() {
+  throw logic_error("");
+}
+
+void test_assert_throw() {
+  assertThrow( throw_logic_error(), logic_error );
+}
+
+
 int main() {
 
   test_assert_double();
@@ -40,6 +50,8 @@ int main() {
   test_assert_int();
   test_assert_string();
   test_assert_true_false();
+
+  test_assert_throw();
 
   return 0;
 }
