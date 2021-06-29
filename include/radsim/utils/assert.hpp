@@ -66,6 +66,29 @@ namespace Assert {
 }
 #endif
 
+#ifndef assertThrow
+#define assertThrow(expr , exception_type) \
+{ \
+    bool throw_ok = false;                                              \
+    try {                                                               \
+      expr;                                                             \
+    }                                                                   \
+    catch (std::exception &e) {                                         \
+      if (dynamic_cast<exception_type *>(&e))                           \
+        throw_ok = true;                                                \
+    }                                                                   \
+    if (!throw_ok)   {     \
+      cout << endl;                                                     \
+      cout << "ASSERT THROW ERROR" << endl; \
+      std::cout << "FILE: " << __FILE__ << std::endl; \
+      std::cout << "FUNCTION: " << __func__ << std::endl; \
+      std::cout << "LINE: " << __LINE__ << std::endl; \
+      std::cout << std::endl; \
+      abort(); \
+    } \
+}
+#endif
+
 }
 
 
