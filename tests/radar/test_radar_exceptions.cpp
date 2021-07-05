@@ -1,10 +1,7 @@
-#include <assert.h>
-
 #include <memory>
 #include <exception>
 
-#include <radsim/utils/utils.hpp>
-#include <radsim/utils/test_utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/radar/radar_config.hpp>
 
@@ -20,5 +17,5 @@ void wrong_1() {
 
 
 int main() {
-  assert_throw<exception>( &wrong_1 );
+  assertThrow( wrong_1(), exception );
 }
