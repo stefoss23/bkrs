@@ -39,7 +39,7 @@ void throw_error() {
 }
 
 void test_assert_throw() {
-  assertThrow( throw_error(), invalid_argument );
+  assertThrow( throw_error(), logic_error );
 }
 
 
