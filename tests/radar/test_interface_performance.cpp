@@ -2,7 +2,6 @@
 #include <memory>
 
 #include <radsim/utils/timer.hpp>
-#include <radsim/utils/utils.hpp>
 #include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
