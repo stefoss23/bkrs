@@ -77,7 +77,7 @@ namespace Assert {
       if (dynamic_cast<exception_type *>(&e))                           \
         throw_ok = true;                                                \
     }                                                                   \
-    if (!throw_ok)   {     \
+    if (!throw_ok)   {                                                  \
       cout << endl;                                                     \
       cout << "ASSERT THROW ERROR" << endl; \
       std::cout << "FILE: " << __FILE__ << std::endl; \

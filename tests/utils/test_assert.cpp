@@ -34,12 +34,12 @@ void test_assert_true_false() {
 }
 
 
-void throw_logic_error() {
+void throw_error() {
   throw logic_error("");
 }
 
 void test_assert_throw() {
-  assertThrow( throw_logic_error(), logic_error );
+  assertThrow( throw_error(), invalid_argument );
 }
 
 
