@@ -1,8 +1,5 @@
 /* This is the first test of real time processing with rads. */
 
-
-#include <assert.h>
-
 #include <vector>
 #include <memory>
 
