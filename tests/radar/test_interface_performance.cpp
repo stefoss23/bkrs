@@ -1,11 +1,8 @@
-
-#include <assert.h>
-
 #include <vector>
 #include <memory>
 
 #include <radsim/utils/timer.hpp>
-#include <radsim/utils/utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
 
@@ -48,12 +45,9 @@ void run_simulator(const string& config_file) {
 
   cout << "Elapsed time(s)   : " << time_elapsed << endl;
   cout << "Simulation time(s): " << sim_time << endl;
-  assert( double_equal(max_time, time_elapsed, 2e-1) );
+  assertDoubleEqual(max_time, time_elapsed, 2e-1);
 
 }
-
-
-
 
 
 int main(int argc , char ** argv) {

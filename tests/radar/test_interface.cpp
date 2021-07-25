@@ -4,7 +4,6 @@
 #include <memory>
 #include <exception>
 
-#include <radsim/utils/test_utils.hpp>
 #include <radsim/utils/assert.hpp>
 #include <radsim/utils/timer.hpp>
 
@@ -209,8 +208,10 @@ int main(int argc , char ** argv) {
 
   const string config_file = string(argv[1]) + "/radar_configs/short_range_radar.txt";
   config = RadarConfigParser().parseFile( config_file );
-  assert_throw<logic_error>(&run_wrong2);
-  assert_throw<logic_error>(&run_wrong3);
+
+  assertThrow(run_wrong2(), logic_error);
+  assertThrow(run_wrong3(), logic_error);
+
   run_paused_continued();
   run_reset();
   run_simulator();
