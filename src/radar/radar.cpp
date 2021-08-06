@@ -502,6 +502,10 @@ double Radar::getCurrentTime() const {
   return state.getTime(); //s
 }
 
+//rad
+double Radar::getCurrentHorTheta() const {
+  return 0.2; //rad
+}
 
 } //end namespace bkradsim
 
