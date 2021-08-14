@@ -69,4 +69,8 @@ const math_vector& RadarState::getBoresight() const {
   return boresight;
 }
 
+double RadarState::getTheta() const {
+  return theta;
+}
+
 } //end namespace bkradsim

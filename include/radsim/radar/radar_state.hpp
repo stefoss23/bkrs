@@ -71,6 +71,7 @@ class RadarState
     const math_vector& getFrameX() const;
     const math_vector& getFrameY() const;
     const math_vector& getBoresight() const; 
+    double getTheta() const; //rad
 
 
 };

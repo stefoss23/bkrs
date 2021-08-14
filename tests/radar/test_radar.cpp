@@ -156,7 +156,7 @@ void test_radar_equation(RadarConfig config) {
 //check rotation
 void test_naval_radar(const RadarConfig& config) {
   Radar radar(config);
-  assertTrue( radar.getCurrentHorTheta() < 1e-6 );
+  assertDoubleEqual( radar.getCurrentHorTheta(), 0.5 * pi, 1e-5 );
 
   assert( complex_equal( radar.getInitialHorTheta(), 0.5 * pi, 1e-4 ) );
   assert( complex_equal( radar.getAntRotSpeed(), -pi, 1e-4 ) );
@@ -171,7 +171,7 @@ void test_naval_radar(const RadarConfig& config) {
   assert( complex_equal(radar.getCurrentTime(), 6e-3, 1e-4) );
   boresight = radar.getCurrentBoresight();
   double angle = 3 * (180.0 * pi / 180.0) * 2e-3; //3 * rotation_speed * PRT
-  assertDoubleEqual( radar.getCurrentHorTheta(), angle, 1e-4 );
+  assertDoubleEqual( radar.getCurrentHorTheta(), 0.5 * pi - angle, 1e-5 );
   assert( complex_equal(boresight[0], sin(angle), 1e-3) );
   assert( complex_equal(boresight[1], cos(angle), 1e-3) );
 }
