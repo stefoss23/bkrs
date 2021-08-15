@@ -18,7 +18,12 @@ class TestStringMethods(unittest.TestCase):
        setup_file = "../python_setup.conf"
        with open(setup_file, "r") as f:
           config_file = os.path.join(f.readline().rstrip('\r\n'), "radar_configs/short_range_radar.txt")
+
+       with open(setup_file, "r") as f:
+          config_file_naval = os.path.join(f.readline().rstrip('\r\n'), "radar_configs/naval_radar.txt")
+
        cls.config = RadarConfigParser().parse_file(config_file)
+       cls.config_naval = RadarConfigParser().parse_file(config_file_naval)
 
     def test_set(self):
         radar = Radar( self.config )
@@ -34,6 +39,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test4(self):
         radar = Radar( self.config )
+        self.assertAlmostEqual(radar.get_current_theta, 0,5 * np.pi, places = 4)
         self.assertAlmostEqual(radar.peak_power, 10000, places=4)
         self.assertAlmostEqual(radar.pulse_width, 0.25e-6, places=4)
         self.assertAlmostEqual(radar.prt, 0.133333e-3, places=4)
