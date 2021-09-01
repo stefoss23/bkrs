@@ -272,6 +272,8 @@ PYBIND11_MODULE(radar_python, m) {
   .def_property("use_filtered_pulse", &Radar::getToUseFilteredPulse, &Radar::setToUseFilteredPulse)
   .def_property("ant_rot_speed", &Radar::getAntRotSpeed, &Radar::setAntRotSpeed)
   .def_property("initial_hor_theta", &Radar::getInitialHorTheta, &Radar::setInitialHorTheta)
+
+  .def("get_current_theta", &Radar::getCurrentHorTheta)
   ;
 
 }

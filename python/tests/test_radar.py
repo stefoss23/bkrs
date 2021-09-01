@@ -39,7 +39,6 @@ class TestStringMethods(unittest.TestCase):
 
     def test4(self):
         radar = Radar( self.config )
-        self.assertAlmostEqual(radar.get_current_theta, 0,5 * np.pi, places = 4)
         self.assertAlmostEqual(radar.peak_power, 10000, places=4)
         self.assertAlmostEqual(radar.pulse_width, 0.25e-6, places=4)
         self.assertAlmostEqual(radar.prt, 0.133333e-3, places=4)
@@ -67,6 +66,11 @@ class TestStringMethods(unittest.TestCase):
         el_pattern = radar.get_elevation_beam_shape()
         self.assertAlmostEqual( el_pattern(0), 1, places=4)
         self.assertAlmostEqual( el_pattern(20 * deg_to_rad), 0.5, places=4)
+
+    def test_naval_radar(self):
+        radar = Radar( self.config_naval )
+        self.assertAlmostEqual(radar.get_current_theta(), 0.5 * np.pi, places=4)
+
 
 if __name__ == '__main__':
     unittest.main()
