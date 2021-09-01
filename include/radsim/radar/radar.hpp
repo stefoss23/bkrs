@@ -150,6 +150,7 @@ class Radar
     const math_vector& getCurrentBoresight() const;
     double getCurrentTime() const; //s
     size_t getCurrentCarrySize() const; //s
+    double getCurrentHorTheta() const; //rad
 
     //In addition to generating a PulseData object, this functions changes the state of the radai simulation,
     //with regards to time, antennaeposition, and storing of signals beyong unambiuous range.     

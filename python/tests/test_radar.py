@@ -18,7 +18,12 @@ class TestStringMethods(unittest.TestCase):
        setup_file = "../python_setup.conf"
        with open(setup_file, "r") as f:
           config_file = os.path.join(f.readline().rstrip('\r\n'), "radar_configs/short_range_radar.txt")
+
+       with open(setup_file, "r") as f:
+          config_file_naval = os.path.join(f.readline().rstrip('\r\n'), "radar_configs/naval_radar.txt")
+
        cls.config = RadarConfigParser().parse_file(config_file)
+       cls.config_naval = RadarConfigParser().parse_file(config_file_naval)
 
     def test_set(self):
         radar = Radar( self.config )
@@ -61,6 +66,11 @@ class TestStringMethods(unittest.TestCase):
         el_pattern = radar.get_elevation_beam_shape()
         self.assertAlmostEqual( el_pattern(0), 1, places=4)
         self.assertAlmostEqual( el_pattern(20 * deg_to_rad), 0.5, places=4)
+
+    def test_naval_radar(self):
+        radar = Radar( self.config_naval )
+        self.assertAlmostEqual(radar.get_current_theta(), 0.5 * np.pi, places=4)
+
 
 if __name__ == '__main__':
     unittest.main()
