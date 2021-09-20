@@ -1,6 +1,4 @@
 
-#include <assert.h>
-
 #include <vector>
 #include <memory>
 #include <thread>
@@ -8,6 +6,7 @@
 #include <radsim/utils/test_utils.hpp>
 
 #include <radsim/utils/utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/math_vector.hpp>
 
@@ -37,35 +36,35 @@ void test_queue() {
 
   RadarDataQueue queue;
 
-  assert( queue.isEmpty() );
-  assert( queue.size() == 0 );
+  assertTrue( queue.isEmpty() );
+  assertIntEqual( queue.size(), 0 );
   queue.pushInitial( PulseData(1.0, boresight, move(s1)) );  // ----- queue = {p1}
-  assert( !queue.isEmpty() );
-  assert( queue.size() == 1 );
+  assertFalse( queue.isEmpty() );
+  assertIntEqual( queue.size(), 1 );
   queue.push( PulseData(2.0, boresight, move(s2)) );  // ----- queue = {p1, p2}
-  assert( queue.size() );
+  assertTrue( queue.size() );
   auto pkg_1 = queue.pop(); // ---- queue = {p2}
-  assert( pkg_1.registry.data() == ptr1 );
-  assert( pkg_1.hasOriginalRegistry() );
-  assert( queue.size() == 1 );
-  assert( !queue.isEmpty() );
+  assertTrue( pkg_1.registry.data() == ptr1 );
+  assertTrue( pkg_1.hasOriginalRegistry() );
+  assertIntEqual( queue.size(), 1 );
+  assertFalse( queue.isEmpty() );
   queue.push( PulseData(3.0, boresight, move(s3)) ); // ------ queue = {p2, p3}
-  assert( queue.size() == 2 );
+  assertIntEqual( queue.size(), 2 );
   auto pkg_2 = queue.pop(); // ---- queue = {p3}
-  assert( pkg_2.registry.data() == ptr2 );
-  assert( queue.size() == 1);
+  assertTrue( pkg_2.registry.data() == ptr2 );
+  assertIntEqual( queue.size(), 1);
   queue.push( PulseData(4.0, boresight, move(s4)) ); // ------ queue = {p3, p4}
-  assert( !queue.isEmpty() );
-  assert( queue.size() == 2 );
+  assertFalse( queue.isEmpty() );
+  assertIntEqual( queue.size(), 2 );
   queue.push( PulseData(5.0, boresight, move(s5)) ); // ------ queue = {p3, p4, p5}
-  assert( queue.size() == 3 );
+  assertIntEqual( queue.size(), 3 );
   queue.push( PulseData(6.0, boresight, move(s6)) ); // ------ queue = {p3, p4, p5, p6}
   auto pkg_3 = queue.pop(); // ---- queue = {p4, p5, p6}
-  assert( pkg_3.registry.data() == ptr3 );
-  assert( queue.size() == 3);
+  assertTrue( pkg_3.registry.data() == ptr3 );
+  assertIntEqual( queue.size(), 3);
   auto pkg_4 = queue.pop(); // ---- queue = {p5, p6}
-  assert( pkg_4.registry.data() == ptr4 );
-  assert( queue.size() == 2);
+  assertTrue( pkg_4.registry.data() == ptr4 );
+  assertTrue( queue.size() == 2);
 
 }
 
@@ -81,17 +80,17 @@ void test_empty() {
   queue.push( PulseData(1.0, boresight, move(s2)) );
   queue.push( PulseData(1.0, boresight, move(s3)) );  
 
-  assert( !queue.isEmpty() );
+  assertFalse( queue.isEmpty() );
   
   queue.empty();
 
-  assert( queue.isEmpty() );
+  assertTrue( queue.isEmpty() );
 
   queue.pushInitial( PulseData(1.0, boresight, move(s1)) );
   queue.push( PulseData(1.0, boresight, move(s2)) );
   queue.push( PulseData(1.0, boresight, move(s3)) );  
 
-  assert( !queue.isEmpty() );  
+  assertFalse( queue.isEmpty() );  
 }
 
 void slow_function() {
@@ -131,7 +130,7 @@ void test_concurrence(bool slow_pop, bool slow_push) {
       data_count++;
       double old_time = sim_time;
       sim_time = packet.getStartTime();
-      assert(  double_equal(sim_time - old_time, 0.1, 1e-4) );
+      assertDoubleEqual(  sim_time - old_time, 0.1, 1e-4);
     }
     if (slow_pop)
       slow_function();
