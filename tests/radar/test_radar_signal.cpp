@@ -68,49 +68,49 @@ void test_unfiltered_signal(RadarConfig config) {
   target.setPosition({base_distance + 0.01 * range_bin, 0, 0});
   auto pulse_data = radar.generatePulseData(targets, true, signal_override);
   auto& registry = pulse_data.registry;
-  assert( registry [253] == 0);
+  assertIntEqual( registry[253], 0);
 
   target.setPosition({base_distance - 0.01 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   //Testing for bool variable to_add_target
   radar.setToAddTarget(false);
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == 0);  
+  assertIntEqual( registry[253], 0);  
   radar.setToAddTarget(true);
 
   target.setPosition({base_distance - 0.5 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 0.99 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 1.01 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 1.5 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 1.99 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 2.01 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == 0);
+  assertIntEqual( registry[253], 0);
 }
 
 /*test that signal from target is correct aftering filtering and digital conversion
