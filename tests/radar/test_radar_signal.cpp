@@ -151,10 +151,10 @@ void test_basic_signal(const RadarConfig& config) {
   auto pulse_data = radar.generatePulseData(targets, true, signal_override);
   const auto& registry = pulse_data.registry;
   //check some signal at 253 and 254, nothing "elsewhere"
-  assert( registry [253] == digital_signal);
-  assert( registry [254] == digital_signal);
-  assert( registry [200] == 0);
-  assert( registry [400] == 0);
+  assertIntEqual(registry[253], digital_signal);
+  assertIntEqual(registry[254], digital_signal);
+  assertIntEqual(registry[200], 0);
+  assertIntEqual(registry[400], 0);
 }
 
 
