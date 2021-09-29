@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <radsim/utils/utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
 #include <radsim/mathematics/approx_function.hpp>
