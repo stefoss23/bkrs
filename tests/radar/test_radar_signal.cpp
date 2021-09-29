@@ -191,47 +191,47 @@ void test_ambiguous_range(RadarConfig config) {
   double target_distance = 2 * maxrange + base_distance;
   TargetCollection targets;
   targets.emplace_back( (math_vector){target_distance, 0, 0}, 0.0 );
-  assert( radar.getCurrentCarrySize() == 0 );
+  assertIntEqual( radar.getCurrentCarrySize(), 0 );
 
   PulseData pulse0 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 1 );
+  assertIntEqual( radar.getCurrentCarrySize(), 1 );
   const auto& packet0 = pulse0.registry;
   //The target is at such a far distance that it cannot appear in pulse 0.
-  assert( packet0[200] == 0 );
-  assert( packet0[253] == 0 );
-  assert( packet0[254] == 0 );
-  assert( packet0[400] == 0 );
+  assertIntEqual( packet0[200], 0 );
+  assertIntEqual( packet0[253], 0 );
+  assertIntEqual( packet0[254], 0 );
+  assertIntEqual( packet0[400], 0 );
   //And neither in pulse 1 
   PulseData pulse1 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 2 );
+  assertIntEqual( radar.getCurrentCarrySize(), 2 );
   const auto& packet1 = pulse1.registry;
-  assert( packet1[200] == 0 );
-  assert( packet1[253] == 0 );
-  assert( packet1[254] == 0 );
-  assert( packet1[400] == 0 );
+  assertIntEqual( packet1[200], 0 );
+  assertIntEqual( packet1[253], 0 );
+  assertIntEqual( packet1[254], 0 );
+  assertIntEqual( packet1[400], 0 );
   //But instead in Pulse 2
   PulseData pulse2 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 2 );
+  assertIntEqual( radar.getCurrentCarrySize(), 2 );
   const auto& packet2 = pulse2.registry;
-  assert( packet2[200] == 0 );
-  assert( packet2[253] == 658 );
-  assert( packet2[254] == 658 );
-  assert( packet2[400] == 0 );
+  assertIntEqual( packet2[200], 0 );
+  assertIntEqual( packet2[253], 658 );
+  assertIntEqual( packet2[254], 658 );
+  assertIntEqual( packet2[400], 0 );
   //And also in Pulse 3
   PulseData pulse3 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 2 );
-  assert( pulse3.isOriginal() );
-  assert( pulse3.hasOriginalRegistry() );
+  assertIntEqual( radar.getCurrentCarrySize(), 2 );
+  assertTrue( pulse3.isOriginal() );
+  assertTrue( pulse3.hasOriginalRegistry() );
   const auto& packet3 = pulse3.registry;
-  assert( packet3[200] == 0 );
-  assert( packet3[253] > 50 );
-  assert( packet3[254] > 50 );
-  assert( packet3[400] == 0 );
+  assertIntEqual( packet3[200], 0 );
+  assertTrue( packet3[253] > 50 );
+  assertTrue( packet3[254] > 50 );
+  assertIntEqual( packet3[400], 0 );
 
   radar.generatePulseData();
-  assert( radar.getCurrentCarrySize() == 1 );
+  assertIntEqual( radar.getCurrentCarrySize(), 1 );
   radar.generatePulseData();
-  assert( radar.getCurrentCarrySize() == 0 );
+  assertIntEqual( radar.getCurrentCarrySize(), 0 );
 
 }
 
