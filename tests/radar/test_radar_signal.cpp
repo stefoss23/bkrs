@@ -498,44 +498,44 @@ void test_phase_and_multiple_targets(RadarConfig config) {
   radar.setToAddNoise(false);
   auto pulse = radar.generatePulseData(targets, true , avg_noise);
   auto& reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], 0, 1e-2 )  );
-  assert( double_equal(reg[bin3], 0, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], 0, 1e-2 );
+  assertDoubleEqual( reg[bin3], 0, 1e-2 );
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], 4 * digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], 0, 1e-2 )  );  
+  assertDoubleEqual( reg[bin1], 4 * digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], 0, 1e-2 );  
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], 4 * digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], 4 * digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], 4 * digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], 4 * digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );
 
   radar.setToAddNoise(true);
   radar.reset();
   pulse = radar.generatePulseData();
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );
 
   radar.reset();
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], 0, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], 0, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], 0, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );  
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], 0, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );  
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], 0, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], 0, 1e-2 );
 }
 
 
