@@ -3,8 +3,6 @@
 #include <memory>
 #include <exception>
 
-#include <radsim/utils/utils.hpp>
-#include <radsim/utils/test_utils.hpp>
 #include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
@@ -69,5 +67,5 @@ void test_wrong_sampling_time()
 
 int main() {
   test_init();
-  assert_throw<logic_error>(&test_wrong_sampling_time);
+  assertThrow(test_wrong_sampling_time(), logic_error);
 }

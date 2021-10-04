@@ -5,7 +5,6 @@
 
 #include <radsim/utils/test_utils.hpp>
 
-#include <radsim/utils/utils.hpp>
 #include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/math_vector.hpp>
