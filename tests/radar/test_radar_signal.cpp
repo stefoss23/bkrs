@@ -3,7 +3,6 @@
 #include <iostream>
 #include <vector>
 
-#include <radsim/utils/utils.hpp>
 #include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
