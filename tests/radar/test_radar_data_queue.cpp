@@ -3,8 +3,6 @@
 #include <memory>
 #include <thread>
 
-#include <radsim/utils/test_utils.hpp>
-
 #include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/math_vector.hpp>
@@ -198,8 +196,8 @@ int main() {
   test_concurrence(false, true);
   test_concurrence(true, false);
   test_concurrence(true, true);
-  assert_throw<logic_error>(&test_empty_queue_exception);
-  assert_throw<logic_error>(&test_pushed_initial_twice);
-  assert_throw<logic_error>(&test_not_pushed_initial);
+  assertThrow(test_empty_queue_exception(), logic_error);
+  assertThrow(test_pushed_initial_twice(), logic_error);
+  assertThrow(test_not_pushed_initial(), logic_error);
   return 0;
 }
