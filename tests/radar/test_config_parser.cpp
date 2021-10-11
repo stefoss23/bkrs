@@ -1,8 +1,6 @@
-#include <assert.h>
-
 #include <iostream>
 
-#include <radsim/utils/test_utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
 
@@ -32,11 +30,11 @@ void test_parse_string() {
   RadarConfigParser parser;
   auto config = parser.parseString(config_str);
   config.assertParametersSet();
-  assert( complex_equal(config.getSamplingTime(),
+  assertComplexEqual( config.getSamplingTime(),
                         0.5 * config.getPulseWidth(),
-                        1e-4) );
-  assert( complex_equal( config.getMaximumReceiveTime(), 1.5e-3, 1e-4 ) );
-  assert( complex_equal( config.getTheta(), 0.5 * pi, 1e-4 ) );
+                        1e-4 );
+  assertComplexEqual( config.getMaximumReceiveTime(), 1.5e-3, 1e-4 );
+  assertComplexEqual( config.getTheta(), 0.5 * pi, 1e-4 );
 }
 
 void test_parse_optional_params() {
@@ -66,10 +64,10 @@ void test_parse_optional_params() {
   RadarConfigParser parser;
   auto config = parser.parseString(config_str);
   config.assertParametersSet();
-  assert( complex_equal( config.getTheta() * 180.0 / pi, 3.0, 1e-4 ) );
-  assert( complex_equal( config.getSamplingTime(), 0.2e-6, 1e-4 ) );
-  assert( complex_equal( config.getMaximumReceiveTime(), 1.2e-3, 1e-4 ) );
-  assert( complex_equal( -config.getAntRotSpeed() * 180.0 / pi, 2.0, 1e-4 ) );
+  assertComplexEqual( config.getTheta() * 180.0 / pi, 3.0, 1e-4 );
+  assertComplexEqual( config.getSamplingTime(), 0.2e-6, 1e-4 );
+  assertComplexEqual( config.getMaximumReceiveTime(), 1.2e-3, 1e-4 );
+  assertComplexEqual( -config.getAntRotSpeed() * 180.0 / pi, 2.0, 1e-4 );
   
 }
 
@@ -183,13 +181,13 @@ int main(int argc , char ** argv) {
   const string filename = string(argv[1]) + "/radar_configs/short_range_radar.txt";
   test_parse_file( filename );
   
-  assert_throw<invalid_argument>(&parse_wrong_file);
-  assert_throw<logic_error>(&test_parse_double_as_integer);
-  assert_throw<logic_error>(&test_parse_missing_keyword);
-  assert_throw<invalid_argument>(& test_parse_wrong_keyword_structure_a);
-  assert_throw<invalid_argument>(& test_parse_wrong_keyword_structure_b);
-  assert_throw<invalid_argument>(& test_parse_wrong_keyword_structure_c);
-  assert_throw<invalid_argument>(& test_repetition);
-  assert_throw<invalid_argument>(&test_text_not_commented);
+  assertThrow(parse_wrong_file(), invalid_argument);
+  assertThrow(test_parse_double_as_integer(), logic_error);
+  assertThrow(test_parse_missing_keyword(), logic_error);
+  assertThrow(test_parse_wrong_keyword_structure_a(), invalid_argument);
+  assertThrow(test_parse_wrong_keyword_structure_b(), invalid_argument);
+  assertThrow(test_parse_wrong_keyword_structure_c(), invalid_argument);
+  assertThrow(test_repetition(), invalid_argument);
+  assertThrow(test_text_not_commented(), invalid_argument);
   return 0;
 }

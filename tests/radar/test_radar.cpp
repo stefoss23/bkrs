@@ -1,10 +1,8 @@
-#include <assert.h>
 #include <math.h>
 
 #include <iostream>
 #include <vector>
 
-#include <radsim/utils/utils.hpp>
 #include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
@@ -35,30 +33,30 @@ void test_radar(const string& config_file) {
   config.setADCMin2Noise(20.0 / (double)65536 );
   Radar radar(config);
 
-  assert( radar.getToAddClutter() );
-  assert( radar.getToAddNoise() );
-  assert( radar.getToAddTarget() );
-  assert( radar.getUsePdf() );
+  assertTrue( radar.getToAddClutter() );
+  assertTrue( radar.getToAddNoise() );
+  assertTrue( radar.getToAddTarget() );
+  assertTrue( radar.getUsePdf() );
   radar.setToAddNoise(false);
   radar.setToAddClutter(false);
   radar.setToAddTarget(false);
   radar.setUsePdf(false);
-  assert( !radar.getToAddNoise() );
-  assert( !radar.getToAddClutter() );
-  assert( !radar.getToAddTarget() );
-  assert( !radar.getUsePdf() );
+  assertFalse( radar.getToAddNoise() );
+  assertFalse( radar.getToAddClutter() );
+  assertFalse( radar.getToAddTarget() );
+  assertFalse( radar.getUsePdf() );
   radar.setUsePdf(true);
 
   double range_bin = radar.getRangeBin(); //m
   double min_dist = radar.getMinimumRange(); //m
-  assert( complex_equal(min_dist + 3 * range_bin, radar.getRange(3), 1e-3) ); 
+  assertComplexEqual(min_dist + 3 * range_bin, radar.getRange(3), 1e-3); 
 
   //Test return of a sampled pulse from noise
   //includes a single target
   radar.setToAddNoise(true);
-  assert( double_equal(radar.getMinimumRange(), 500, 1e-2));
-  assert( double_equal(radar.getUnAmbiguousRange(), 20000, 1e-2));
-  assert( double_equal(radar.getRangeBin(), 37.5, 1e-3));
+  assertDoubleEqual(radar.getMinimumRange(), 500, 1e-2);
+  assertDoubleEqual(radar.getUnAmbiguousRange(), 20000, 1e-2);
+  assertDoubleEqual(radar.getRangeBin(), 37.5, 1e-3);
 
   auto adc = radar.getADC();
   
@@ -66,36 +64,36 @@ void test_radar(const string& config_file) {
   auto pulse_data = radar.generatePulseData();
   auto& registry = pulse_data.registry;
   cout << "Reg[0] = " << registry[0] << endl;
-  assert(  !(registry[0] == registry[1] && registry[1] == registry[2] &&
-             registry[2] == registry[3] && registry[3] == registry[4])  );
+  assertTrue(  !(registry[0] == registry[1] && registry[1] == registry[2] &&
+                 registry[2] == registry[3] && registry[3] == registry[4])  );
 
   //testing pdf-setting
   radar.setUsePdf(false);
   radar.reset();
   PulseData pulse1 = radar.generatePulseData();
-  assert( pulse1.isOriginal() );
-  assert( pulse1.hasOriginalRegistry() );
+  assertTrue( pulse1.isOriginal() );
+  assertTrue( pulse1.hasOriginalRegistry() );
   registry = pulse1.registry;
   unsigned short Signal = adc.convertSignal(AvgNoise);
-  assert( double_equal(registry[0], Signal, 1e-3) );
+  assertDoubleEqual( registry[0], Signal, 1e-3 );
   radar.setUsePdf(true);
 
   radar.setRandomParameters(true, 0, &RandReplacement);
   radar.reset();
   PulseData pulse2 = radar.generatePulseData();
-  assert( pulse2.isOriginal() );
-  assert( pulse2.hasOriginalRegistry() );
+  assertTrue( pulse2.isOriginal() );
+  assertTrue( pulse2.hasOriginalRegistry() );
   registry = pulse2.registry;
-  assert( registry[3] == 2271 );
-  assert( registry[9] == 2271 );
-  assert( registry.size() == 507);
+  assertIntEqual( registry[3], 2271 );
+  assertIntEqual( registry[9], 2271 );
+  assertIntEqual( registry.size(), 507);
   ADC A = radar.getADC();
 
   //test shape of filtered pulse
   DoubleApproxFunction s0 = radar.getFilteredPulse();
-  assert( complex_equal(s0.output(0), 0.56, 5e-2));
+  assertComplexEqual( s0.output(0), 0.56, 5e-2 );
   double PulseWidth = radar.getPulseWidth();
-  assert( complex_equal(s0.output(PulseWidth), 0.56, 5e-2));
+  assertComplexEqual( s0.output(PulseWidth), 0.56, 5e-2 );
   
 }
 
@@ -137,17 +135,17 @@ void test_radar_equation(RadarConfig config) {
   auto adc = radar.getADC();
   int measurement = adc.convertSignal(received_power);
   auto pulse_data = radar.generatePulseData({target});
-  assert( double_equal(pulse_data.registry[bin_index], measurement, 1.0e-2) );
+  assertDoubleEqual( pulse_data.registry[bin_index], measurement, 1.0e-2 );
 
   double deg_to_rad = pi / 180.0;
   auto hor_shape = radar.getHorizontalBeamShape();
-  assert( complex_equal(hor_shape.output(0), 1, 1e-4) );
-  assert( complex_equal(hor_shape.output(1.0 * deg_to_rad), 0.5, 1e-4) );
-  assert( complex_equal(hor_shape.output(2.0 * deg_to_rad), 0.0625, 1e-4) );
+  assertComplexEqual( hor_shape.output(0), 1, 1e-4 );
+  assertComplexEqual( hor_shape.output(1.0 * deg_to_rad), 0.5, 1e-4 );
+  assertComplexEqual( hor_shape.output(2.0 * deg_to_rad), 0.0625, 1e-4 );
   auto el_shape = radar.getElevationBeamShape();
-  assert( complex_equal(el_shape.output(0), 1, 1e-4) );
-  assert( complex_equal(el_shape.output(20.0 * deg_to_rad), 0.5, 1e-4) );
-  assert( complex_equal(el_shape.output(40.0 * deg_to_rad), 0.0625, 1e-4) );
+  assertComplexEqual( el_shape.output(0), 1, 1e-4 );
+  assertComplexEqual( el_shape.output(20.0 * deg_to_rad), 0.5, 1e-4 );
+  assertComplexEqual( el_shape.output(40.0 * deg_to_rad), 0.0625, 1e-4 );
 }
 
 
@@ -158,22 +156,22 @@ void test_naval_radar(const RadarConfig& config) {
   Radar radar(config);
   assertDoubleEqual( radar.getCurrentHorTheta(), 0.5 * pi, 1e-5 );
 
-  assert( complex_equal( radar.getInitialHorTheta(), 0.5 * pi, 1e-4 ) );
-  assert( complex_equal( radar.getAntRotSpeed(), -pi, 1e-4 ) );
+  assertComplexEqual( radar.getInitialHorTheta(), 0.5 * pi, 1e-4 );
+  assertComplexEqual( radar.getAntRotSpeed(), -pi, 1e-4 );
   math_vector boresight = radar.getCurrentBoresight();
-  assert( boresight[0] < 1e-4 );
-  assert( complex_equal(boresight[1], 1, 1e-4) );
+  assertTrue( boresight[0] < 1e-4 );
+  assertComplexEqual( boresight[1], 1, 1e-4 );
 
-  assert( complex_equal(radar.getPRT(), 2e-3, 1e-4) );
+  assertComplexEqual( radar.getPRT(), 2e-3, 1e-4 );
   radar.generatePulseData();
   radar.generatePulseData();
   radar.generatePulseData();
-  assert( complex_equal(radar.getCurrentTime(), 6e-3, 1e-4) );
+  assertComplexEqual( radar.getCurrentTime(), 6e-3, 1e-4 );
   boresight = radar.getCurrentBoresight();
   double angle = 3 * (180.0 * pi / 180.0) * 2e-3; //3 * rotation_speed * PRT
   assertDoubleEqual( radar.getCurrentHorTheta(), 0.5 * pi - angle, 1e-5 );
-  assert( complex_equal(boresight[0], sin(angle), 1e-3) );
-  assert( complex_equal(boresight[1], cos(angle), 1e-3) );
+  assertComplexEqual( boresight[0], sin(angle), 1e-3 );
+  assertComplexEqual( boresight[1], cos(angle), 1e-3 );
 }
 
 

@@ -1,10 +1,9 @@
-#include <assert.h>
 #include <math.h>
 
 #include <iostream>
 #include <vector>
 
-#include <radsim/utils/utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
 #include <radsim/mathematics/approx_function.hpp>
@@ -67,49 +66,49 @@ void test_unfiltered_signal(RadarConfig config) {
   target.setPosition({base_distance + 0.01 * range_bin, 0, 0});
   auto pulse_data = radar.generatePulseData(targets, true, signal_override);
   auto& registry = pulse_data.registry;
-  assert( registry [253] == 0);
+  assertIntEqual( registry[253], 0);
 
   target.setPosition({base_distance - 0.01 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   //Testing for bool variable to_add_target
   radar.setToAddTarget(false);
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == 0);  
+  assertIntEqual( registry[253], 0);  
   radar.setToAddTarget(true);
 
   target.setPosition({base_distance - 0.5 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 0.99 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 1.01 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 1.5 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 1.99 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == digital_signal);
+  assertIntEqual( registry[253], digital_signal);
 
   target.setPosition({base_distance - 2.01 * range_bin, 0, 0});
   pulse_data = radar.generatePulseData(targets, true, signal_override);
   registry = pulse_data.registry;
-  assert( registry [253] == 0);
+  assertIntEqual( registry[253], 0);
 }
 
 /*test that signal from target is correct aftering filtering and digital conversion
@@ -150,10 +149,10 @@ void test_basic_signal(const RadarConfig& config) {
   auto pulse_data = radar.generatePulseData(targets, true, signal_override);
   const auto& registry = pulse_data.registry;
   //check some signal at 253 and 254, nothing "elsewhere"
-  assert( registry [253] == digital_signal);
-  assert( registry [254] == digital_signal);
-  assert( registry [200] == 0);
-  assert( registry [400] == 0);
+  assertIntEqual(registry[253], digital_signal);
+  assertIntEqual(registry[254], digital_signal);
+  assertIntEqual(registry[200], 0);
+  assertIntEqual(registry[400], 0);
 }
 
 
@@ -190,47 +189,47 @@ void test_ambiguous_range(RadarConfig config) {
   double target_distance = 2 * maxrange + base_distance;
   TargetCollection targets;
   targets.emplace_back( (math_vector){target_distance, 0, 0}, 0.0 );
-  assert( radar.getCurrentCarrySize() == 0 );
+  assertIntEqual( radar.getCurrentCarrySize(), 0 );
 
   PulseData pulse0 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 1 );
+  assertIntEqual( radar.getCurrentCarrySize(), 1 );
   const auto& packet0 = pulse0.registry;
   //The target is at such a far distance that it cannot appear in pulse 0.
-  assert( packet0[200] == 0 );
-  assert( packet0[253] == 0 );
-  assert( packet0[254] == 0 );
-  assert( packet0[400] == 0 );
+  assertIntEqual( packet0[200], 0 );
+  assertIntEqual( packet0[253], 0 );
+  assertIntEqual( packet0[254], 0 );
+  assertIntEqual( packet0[400], 0 );
   //And neither in pulse 1 
   PulseData pulse1 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 2 );
+  assertIntEqual( radar.getCurrentCarrySize(), 2 );
   const auto& packet1 = pulse1.registry;
-  assert( packet1[200] == 0 );
-  assert( packet1[253] == 0 );
-  assert( packet1[254] == 0 );
-  assert( packet1[400] == 0 );
+  assertIntEqual( packet1[200], 0 );
+  assertIntEqual( packet1[253], 0 );
+  assertIntEqual( packet1[254], 0 );
+  assertIntEqual( packet1[400], 0 );
   //But instead in Pulse 2
   PulseData pulse2 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 2 );
+  assertIntEqual( radar.getCurrentCarrySize(), 2 );
   const auto& packet2 = pulse2.registry;
-  assert( packet2[200] == 0 );
-  assert( packet2[253] == 658 );
-  assert( packet2[254] == 658 );
-  assert( packet2[400] == 0 );
+  assertIntEqual( packet2[200], 0 );
+  assertIntEqual( packet2[253], 658 );
+  assertIntEqual( packet2[254], 658 );
+  assertIntEqual( packet2[400], 0 );
   //And also in Pulse 3
   PulseData pulse3 = radar.generatePulseData(targets, true, 40 * avg_noise);
-  assert( radar.getCurrentCarrySize() == 2 );
-  assert( pulse3.isOriginal() );
-  assert( pulse3.hasOriginalRegistry() );
+  assertIntEqual( radar.getCurrentCarrySize(), 2 );
+  assertTrue( pulse3.isOriginal() );
+  assertTrue( pulse3.hasOriginalRegistry() );
   const auto& packet3 = pulse3.registry;
-  assert( packet3[200] == 0 );
-  assert( packet3[253] > 50 );
-  assert( packet3[254] > 50 );
-  assert( packet3[400] == 0 );
+  assertIntEqual( packet3[200], 0 );
+  assertTrue( packet3[253] > 50 );
+  assertTrue( packet3[254] > 50 );
+  assertIntEqual( packet3[400], 0 );
 
   radar.generatePulseData();
-  assert( radar.getCurrentCarrySize() == 1 );
+  assertIntEqual( radar.getCurrentCarrySize(), 1 );
   radar.generatePulseData();
-  assert( radar.getCurrentCarrySize() == 0 );
+  assertIntEqual( radar.getCurrentCarrySize(), 0 );
 
 }
 
@@ -278,35 +277,35 @@ void test_angle_offset(RadarConfig config) {
   radar.reset();
   auto pulse_data = radar.generatePulseData(targets, true , signal_override);
   auto& reg = pulse_data.registry;
-  assert( double_equal(reg[253], 8000, 1e-2) );
+  assertDoubleEqual( reg[253], 8000, 1e-2 );
 
   //1 degree to the left, measure should be 2000
   targets.front().setPosition({base_distance * cos(1.0 * deg_to_rad) , base_distance * sin(1.0 * deg_to_rad), 0});
   radar.reset();
   pulse_data = radar.generatePulseData(targets, true , signal_override);
   reg = pulse_data.registry;
-  assert( double_equal(reg[253], 2000, 1e-2) );
+  assertDoubleEqual(reg[253], 2000, 1e-2 );
 
   //2 degrees to the left, measure should be 0
   targets.front().setPosition({base_distance * cos(2.0 * deg_to_rad) , base_distance * sin(2.0 * deg_to_rad), 0});
   radar.reset();
   pulse_data = radar.generatePulseData(targets, true , signal_override);
   reg = pulse_data.registry;
-  assert( double_equal(reg[253], 0, 1e-2) );
+  assertDoubleEqual( reg[253], 0, 1e-2 );
 
   //1 degree to the right, measure should be 2000
   targets.front().setPosition({base_distance * cos(-1.0 * deg_to_rad) , base_distance * sin(-1.0 * deg_to_rad), 0});
   radar.reset();
   pulse_data = radar.generatePulseData(targets, true , signal_override);
   reg = pulse_data.registry;
-  assert( double_equal(reg[253], 2000, 1e-2) );
+  assertDoubleEqual( reg[253], 2000, 1e-2 );
 
   //2 degrees to the right, measure should be 0
   targets.front().setPosition({base_distance * cos(-2.0 * deg_to_rad) , base_distance * sin(-2.0 * deg_to_rad), 0});
   radar.reset();
   pulse_data = radar.generatePulseData(targets, true , signal_override);
   reg = pulse_data.registry;
-  assert( double_equal(reg[253], 0, 1e-2) );
+  assertDoubleEqual( reg[253], 0, 1e-2 );
 
 
   //------ Both target and radar are stationary, moving radar in an arc crossing the east axis. 
@@ -316,13 +315,13 @@ void test_angle_offset(RadarConfig config) {
   radar.reset();
   pulse_data = radar.generatePulseData(targets, true , signal_override);
   reg = pulse_data.registry;
-  assert( double_equal(reg[253], 2000, 1e-2) );
+  assertDoubleEqual( reg[253], 2000, 1e-2 );
 
   radar.setInitialHorTheta(- 1.0 * deg_to_rad); //1 degree south
   radar.reset();
   pulse_data = radar.generatePulseData(targets, true , signal_override);
   reg = pulse_data.registry;
-  assert( double_equal(reg[253], 2000, 1e-2) );
+  assertDoubleEqual( reg[253], 2000, 1e-2 );
 
   /*----- testing with moveable target, Radar antannae is stationary
     Target start at -2 deg offset, moving 1 deg per pulse.*/
@@ -347,13 +346,13 @@ void test_angle_offset(RadarConfig config) {
   auto pulse_data2 = radar.generatePulseData(targets, true, signal_override);
   auto pulse_data3 = radar.generatePulseData(targets, true, signal_override);
   auto pulse_data4 = radar.generatePulseData(targets, true, signal_override);
-  assert( pulse_data0.getStartTime() == 0.0 );
-  assert( double_equal(pulse_data1.getStartTime(), T, 1e-3 ));
-  assert( double_equal(pulse_data0.registry[253], 0, 1e-2 )  );    //-2 deg offser
-  assert( double_equal(pulse_data1.registry[253], 2000, 1e-2 )  ); //-1 deg offset                         
-  assert( double_equal(pulse_data2.registry[253], 8000, 1e-2 )  ); //0 deg = boresight
-  assert( double_equal(pulse_data3.registry[253], 2000, 1e-2 )  ); //+1 deg offset
-  assert( double_equal(pulse_data4.registry[253], 0000, 1e-2 )  ); //+1 deg offset
+  assertTrue( pulse_data0.getStartTime() == 0.0 );
+  assertDoubleEqual( pulse_data1.getStartTime(), T, 1e-3 );
+  assertDoubleEqual( pulse_data0.registry[253], 0, 1e-2 )  ;    //-2 deg offser
+  assertDoubleEqual( pulse_data1.registry[253], 2000, 1e-2 ); //-1 deg offset                         
+  assertDoubleEqual( pulse_data2.registry[253], 8000, 1e-2 ); //0 deg = boresight
+  assertDoubleEqual( pulse_data3.registry[253], 2000, 1e-2 ); //+1 deg offset
+  assertDoubleEqual( pulse_data4.registry[253], 0000, 1e-2 ); //+1 deg offset
 
   /*----- testing with moveable target, Radar antannae is stationary
     ----- target has some height, the same azimuth deviation applies
@@ -378,13 +377,13 @@ void test_angle_offset(RadarConfig config) {
   pulse_data2 = radar.generatePulseData(targets, true, signal_override);
   pulse_data3 = radar.generatePulseData(targets, true, signal_override);
   pulse_data4 = radar.generatePulseData(targets, true, signal_override);
-  assert( pulse_data0.getStartTime() == 0.0 );
-  assert( double_equal(pulse_data1.getStartTime(), T, 1e-3 ));
-  assert( double_equal(pulse_data0.registry[253],    0, 1e-2 )  );    //-2 deg az offser, -20 deg el offset
-  assert( double_equal(pulse_data1.registry[253],  500, 1e-2 )  ); //-1 deg az offset, -20 deg el offset                         
-  assert( double_equal(pulse_data2.registry[253], 2000, 1e-2 )  ); //0 deg = az boresight, -20 deg el offset
-  assert( double_equal(pulse_data3.registry[253],  500, 1e-2 )  ); //+1 deg az offset, - 20 deg el offset
-  assert( double_equal(pulse_data4.registry[253],    0, 1e-2 )  ); //+1 deg az offset, -20 deg el offset*/
+  assertTrue( pulse_data0.getStartTime() == 0.0 );
+  assertDoubleEqual( pulse_data1.getStartTime(), T, 1e-3  );
+  assertDoubleEqual( pulse_data0.registry[253],    0, 1e-2 );    //-2 deg az offser, -20 deg el offset
+  assertDoubleEqual( pulse_data1.registry[253],  500, 1e-2 ); //-1 deg az offset, -20 deg el offset                         
+  assertDoubleEqual( pulse_data2.registry[253], 2000, 1e-2 ); //0 deg = az boresight, -20 deg el offset
+  assertDoubleEqual( pulse_data3.registry[253],  500, 1e-2 ); //+1 deg az offset, - 20 deg el offset
+  assertDoubleEqual( pulse_data4.registry[253],    0, 1e-2 ); //+1 deg az offset, -20 deg el offset*/
 
   /*----- testing with moveable target, Radar antannae is stationary
     ----- Elevation movement
@@ -410,13 +409,13 @@ void test_angle_offset(RadarConfig config) {
   pulse_data2 = radar.generatePulseData(targets, true, signal_override);
   pulse_data3 = radar.generatePulseData(targets, true, signal_override);
   pulse_data4 = radar.generatePulseData(targets, true, signal_override);
-  assert( pulse_data0.getStartTime() == 0.0 );
-  assert( double_equal(pulse_data1.getStartTime(), T, 1e-3 ));
-  assert( double_equal(pulse_data0.registry[253],    0, 1e-2 )  );    //-40 deg el offset
-  assert( double_equal(pulse_data1.registry[253], 2000, 1e-2 )  ); //-20 deg el offset                         
-  assert( double_equal(pulse_data2.registry[253], 8000, 1e-2 )  ); //0 deg = boresight
-  assert( double_equal(pulse_data3.registry[253], 2000, 1e-2 )  ); //+20 deg el offset
-  assert( double_equal(pulse_data4.registry[253],    0, 1e-2 )  ); //+40 deg el offset
+  assertTrue( pulse_data0.getStartTime() == 0.0 );
+  assertDoubleEqual( pulse_data1.getStartTime(), T, 1e-3 );
+  assertDoubleEqual( pulse_data0.registry[253],    0, 1e-2 );    //-40 deg el offset
+  assertDoubleEqual( pulse_data1.registry[253], 2000, 1e-2 ); //-20 deg el offset                         
+  assertDoubleEqual( pulse_data2.registry[253], 8000, 1e-2 ); //0 deg = boresight
+  assertDoubleEqual( pulse_data3.registry[253], 2000, 1e-2 ); //+20 deg el offset
+  assertDoubleEqual( pulse_data4.registry[253],    0, 1e-2 ); //+40 deg el offset
 
   /*----- testing with rotating antennae, target is stationary
     Antennae moves by 1 deg per pulse period. 
@@ -432,12 +431,12 @@ void test_angle_offset(RadarConfig config) {
   pulse_data2 = radar.generatePulseData(targets, true, signal_override);
   pulse_data3 = radar.generatePulseData(targets, true, signal_override);
   pulse_data4 = radar.generatePulseData(targets, true, signal_override);
-  assert( pulse_data2.getBoresight()[1] < 1e-5 ); //pulse was emitting in x -direction
-  assert( double_equal(pulse_data0.registry[253], 0, 1e-2 )  );
-  assert( double_equal(pulse_data1.registry[253], 2000, 1e-2 )  );                            
-  assert( double_equal(pulse_data2.registry[253], 8000, 1e-2 )  );
-  assert( double_equal(pulse_data3.registry[253], 2000, 1e-2 )  );
-  assert( double_equal(pulse_data4.registry[253], 0, 1e-2 )  );
+  assertTrue( pulse_data2.getBoresight()[1] < 1e-5 ); //pulse was emitting in x -direction
+  assertDoubleEqual( pulse_data0.registry[253], 0, 1e-2 );
+  assertDoubleEqual( pulse_data1.registry[253], 2000, 1e-2  );                            
+  assertDoubleEqual( pulse_data2.registry[253], 8000, 1e-2  );
+  assertDoubleEqual( pulse_data3.registry[253], 2000, 1e-2  );
+  assertDoubleEqual( pulse_data4.registry[253], 0, 1e-2 );
 
   //------ testing const target, w/ rotatable antennae, target beoynd unambiguous range
   //------ stationary target
@@ -448,13 +447,13 @@ void test_angle_offset(RadarConfig config) {
   pulse_data2 = radar.generatePulseData(targets, true, signal_override);
   pulse_data3 = radar.generatePulseData(targets, true, signal_override);
   pulse_data4 = radar.generatePulseData(targets, true, signal_override);
-  assert( double_equal(pulse_data0.registry[253], 0, 1e-2 )  );     //0, because target beyond unamb. range
-  assert( double_equal(pulse_data1.registry[253], 0, 1e-2 )  );     //0, because of offset in pulse 0, emission at -2 deg 0 => 
+  assertDoubleEqual( pulse_data0.registry[253], 0, 1e-2 );     //0, because target beyond unamb. range
+  assertDoubleEqual( pulse_data1.registry[253], 0, 1e-2 );     //0, because of offset in pulse 0, emission at -2 deg 0 => 
                                                                     //no intensity
-  assert( double_equal(pulse_data2.registry[253], 4000, 1e-2 )  );  //received at boresight, emitted at deg -1 with half intensity
-  assert( double_equal(pulse_data3.registry[253], 4000, 1e-2 )  );  //received with half intensity at +1 deg, emitted at boresight 
+  assertDoubleEqual( pulse_data2.registry[253], 4000, 1e-2 );  //received at boresight, emitted at deg -1 with half intensity
+  assertDoubleEqual( pulse_data3.registry[253], 4000, 1e-2 );  //received with half intensity at +1 deg, emitted at boresight 
                                                                     //with full intensity
-  assert( double_equal(pulse_data4.registry[253], 0, 1e-2 )  );     //received at +2 deg at zero intensity. 
+  assertDoubleEqual( pulse_data4.registry[253], 0, 1e-2 );     //received at +2 deg at zero intensity. 
 }
 
 
@@ -497,44 +496,44 @@ void test_phase_and_multiple_targets(RadarConfig config) {
   radar.setToAddNoise(false);
   auto pulse = radar.generatePulseData(targets, true , avg_noise);
   auto& reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], 0, 1e-2 )  );
-  assert( double_equal(reg[bin3], 0, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], 0, 1e-2 );
+  assertDoubleEqual( reg[bin3], 0, 1e-2 );
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], 4 * digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], 0, 1e-2 )  );  
+  assertDoubleEqual( reg[bin1], 4 * digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], 0, 1e-2 );  
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], 4 * digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], 4 * digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], 4 * digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], 4 * digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );
 
   radar.setToAddNoise(true);
   radar.reset();
   pulse = radar.generatePulseData();
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );
 
   radar.reset();
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], 0, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], 0, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], 0, 1e-2 )  );
-  assert( double_equal(reg[bin3], digital_signal, 1e-2 )  );  
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], 0, 1e-2 );
+  assertDoubleEqual( reg[bin3], digital_signal, 1e-2 );  
   pulse = radar.generatePulseData(targets, true , avg_noise);
   reg = pulse.registry;
-  assert( double_equal(reg[bin1], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin2], digital_signal, 1e-2 )  );
-  assert( double_equal(reg[bin3], 0, 1e-2 )  );
+  assertDoubleEqual( reg[bin1], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin2], digital_signal, 1e-2 );
+  assertDoubleEqual( reg[bin3], 0, 1e-2 );
 }
 
 

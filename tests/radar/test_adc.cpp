@@ -1,9 +1,7 @@
-#include <assert.h>
 #include <math.h>
 #include <iostream>
 
-#include <radsim/utils/utils.hpp>
-#include <radsim/utils/test_utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/radar/adc.hpp>
 
@@ -15,10 +13,10 @@ void test_adc_effect_mode() {
   int    resolution = 10; //bits
   ADC adc(resolution, ADCMode::Power, min_level); 
   int num_levels = adc.getNumLevels();
-  assert( num_levels == 1024 );
-  assert( complex_equal(adc.getSensitivity(), min_level, 1e-2) );
-  assert(adc.convertSignal(min_level * 1024) == num_levels - 1);
-  assert(adc.convertSignal(min_level * 122.001) == 122);
+  assertIntEqual( num_levels, 1024 );
+  assertComplexEqual( adc.getSensitivity(), min_level, 1e-2 );
+  assertIntEqual( adc.convertSignal(min_level * 1024) , num_levels - 1);
+  assertIntEqual(adc.convertSignal(min_level * 122.001),  122);
 }
 
 void test_adc_log_mode() {
@@ -26,9 +24,9 @@ void test_adc_log_mode() {
   double min_level  = 1e-14; //W
   int    resolution = 9; //bits
   ADC adc(resolution, ADCMode::Logarithm, min_level, max_level); 
-  assert( adc.convertSignal(max_level * 1.01) == 511 );
-  assert( adc.convertSignal(min_level * 0.5) == 0 );
-  assert( adc.convertSignal(min_level * 5) == 177 );
+  assertIntEqual( adc.convertSignal(max_level * 1.01) , 511 );
+  assertIntEqual( adc.convertSignal(min_level * 0.5) , 0 );
+  assertIntEqual( adc.convertSignal(min_level * 5) , 177 );
 }
 
 void wrong_1() {
@@ -44,9 +42,9 @@ void wrong_3() {
 }
 
 void test_wrong_inputs() {
-  assert_throw<std::invalid_argument>( &wrong_1 );
-  assert_throw<std::invalid_argument>( &wrong_2 );
-  assert_throw<std::invalid_argument>( &wrong_3 );
+  assertThrow( wrong_1() , invalid_argument );
+  assertThrow( wrong_2() , invalid_argument );
+  assertThrow( wrong_3() , invalid_argument );
 }
 
 int main() {

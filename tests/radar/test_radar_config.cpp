@@ -1,11 +1,9 @@
-#include <assert.h>
 #include <math.h>
 
 #include <memory>
 #include <exception>
 
-#include <radsim/utils/utils.hpp>
-#include <radsim/utils/test_utils.hpp>
+#include <radsim/utils/assert.hpp>
 
 #include <radsim/mathematics/constants.hpp>
 
@@ -33,20 +31,20 @@ void test_init() {
   Config.setHorizontalBeamShape(BeamPattern::Triangular);
   Config.setElevationBeamShape(BeamPattern::Triangular);
   Config.assertParametersSet();
-  assert( double_equal(1.1, Config.getPeakPower(), 1e-3) );
-  assert( double_equal(1.0e10, Config.getFrequency(), 1e-3) );
-  assert( double_equal(2.2e-6, Config.getPulseWidth(), 1e-3) );
-  assert( double_equal(50.0e-3, Config.getPRT(), 1e-3) );
-  assert( double_equal(30.3e-3, Config.getMaximumReceiveTime(), 1e-3) );
-  assert( double_equal(4.4e6, Config.getBandWidth(), 1e-3) );
-  assert( double_equal(100.0, Config.getNoiseFigure(), 1e-3) ); //output in unit
-  assert( double_equal(6.6e-6, Config.getDuplexerSwitchTime(), 1e-3) );
-  assert( double_equal(100.0, Config.getAntennaeGain(), 1e-3) );
-  assert( double_equal(pi, Config.getHorizontalBeamWidth(), 1e-3) ); //output in rad
-  assert( double_equal(pi/2, Config.getElevationBeamWidth(), 1e-3) ); //output in rad
-  assert( double_equal(-pi, Config.getAntRotSpeed(), 1e-3) ); //output in rad/s
-  assert( BeamPattern::Triangular == Config.getHorizontalBeamShape() );
-  assert( BeamPattern::Triangular == Config.getElevationBeamShape() );
+  assertDoubleEqual( 1.1, Config.getPeakPower(), 1e-3);
+  assertDoubleEqual( 1.0e10, Config.getFrequency(), 1e-3);
+  assertDoubleEqual( 2.2e-6, Config.getPulseWidth(), 1e-3);
+  assertDoubleEqual( 50.0e-3, Config.getPRT(), 1e-3);
+  assertDoubleEqual( 30.3e-3, Config.getMaximumReceiveTime(), 1e-3);
+  assertDoubleEqual( 4.4e6, Config.getBandWidth(), 1e-3);
+  assertDoubleEqual( 100.0, Config.getNoiseFigure(), 1e-3); //output in unit
+  assertDoubleEqual( 6.6e-6, Config.getDuplexerSwitchTime(), 1e-3);
+  assertDoubleEqual( 100.0, Config.getAntennaeGain(), 1e-3);
+  assertDoubleEqual( pi, Config.getHorizontalBeamWidth(), 1e-3); //output in rad
+  assertDoubleEqual( pi/2, Config.getElevationBeamWidth(), 1e-3); //output in rad
+  assertDoubleEqual( -pi, Config.getAntRotSpeed(), 1e-3); //output in rad/s
+  assertTrue( BeamPattern::Triangular == Config.getHorizontalBeamShape() );
+  assertTrue( BeamPattern::Triangular == Config.getElevationBeamShape() );
 }
 
 void test_wrong_sampling_time()
@@ -69,5 +67,5 @@ void test_wrong_sampling_time()
 
 int main() {
   test_init();
-  assert_throw<logic_error>(&test_wrong_sampling_time);
+  assertThrow(test_wrong_sampling_time(), logic_error);
 }
