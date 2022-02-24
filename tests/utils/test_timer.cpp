@@ -1,8 +1,7 @@
-#include <assert.h>
-
 #include <chrono>
 #include <ctime>
 
+#include <radsim/utils/assert.hpp>
 #include <radsim/utils/timer.hpp>
 #include <radsim/utils/utils.hpp>
 
@@ -27,7 +26,7 @@ void test_timer() {
   while (timer.elapsed() < test_time) {}
   double time_elapsed = get_time_elapsed(t_start);
 
-  assert( double_equal(get_time_elapsed(t_start), test_time, 1e-2) );
+  assertDoubleEqual( get_time_elapsed(t_start), test_time, 1e-2 );
   
 
 }
