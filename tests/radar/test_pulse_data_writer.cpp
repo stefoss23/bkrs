@@ -44,9 +44,8 @@ void test_write_pulses() {
   PulseData pulse1(t1, v, data);
   PulseData pulse2(t2, v, data);
   
-  PulseDataWriter writer;
+  PulseDataWriter writer(filename);
 
-  writer.open(filename);
   writer.write(pulse1);
   writer.write(pulse2);
   writer.close();

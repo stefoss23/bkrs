@@ -23,11 +23,10 @@ Signals                      (short) : 2 bytes x N bins
 namespace radsim {
 
 class PulseDataWriter {
-public:
-
-  void open(const std::string& filename);
-  void close();
-  void write(const PulseData& pulse_data);
+  public:
+    PulseDataWriter(const std::string& filename);
+    void close();
+    void write(const PulseData& pulse_data);
 };
 
 }

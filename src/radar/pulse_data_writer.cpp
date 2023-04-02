@@ -3,7 +3,7 @@
 
 using namespace radsim;
 
-void PulseDataWriter::open(const std::string& filename) {
+PulseDataWriter::PulseDataWriter(const std::string& filename) {
 }
 
 void PulseDataWriter::write(const PulseData& pulse_data) {
