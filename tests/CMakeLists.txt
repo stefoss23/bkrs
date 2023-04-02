@@ -43,6 +43,7 @@ foreach (test   test_target
                 test_interface_plain
                 test_pulse_data
                 test_config_parser
+                test_pulse_data_writer
     )
     add_executable(${test} radar/${test}.cpp)
     target_link_libraries(${test} rads)
