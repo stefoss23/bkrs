@@ -19,10 +19,16 @@ Signals                      (short) : 2 bytes x N bins
 
 
 #include <iostream>
+#include <fstream>
 
 namespace radsim {
 
 class PulseDataWriter {
+    std::ofstream ofs;
+    void writeDouble(double number);
+    void writeInt(int number);
+    void writeUnsignedShort(unsigned short number);
+
   public:
     PulseDataWriter(const std::string& filename);
     void close();
