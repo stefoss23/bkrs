@@ -25,9 +25,12 @@ namespace radsim {
 
 class PulseDataWriter {
     std::ofstream ofs;
-    void writeDouble(double number);
-    void writeInt(int number);
-    void writeUnsignedShort(unsigned short number);
+
+    template <class T>
+    void write(T number) {
+      ofs.write((char *) &number, sizeof number);
+    }
+
     bool is_closed;
 
   public:
