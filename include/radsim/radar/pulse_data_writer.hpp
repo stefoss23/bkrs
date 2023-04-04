@@ -28,6 +28,7 @@ class PulseDataWriter {
     void writeDouble(double number);
     void writeInt(int number);
     void writeUnsignedShort(unsigned short number);
+    bool is_closed;
 
   public:
     PulseDataWriter(const std::string& filename);

@@ -86,7 +86,21 @@ void test_write_pulses() {
   in.close();
 }
 
+
+void test_cannot_write_after_closed() {
+  PulseDataWriter writer("filename1");
+  writer.close();
+
+  math_vector v = {0.5, 0.25, 0.75};
+  vector<unsigned short> data = {5, 100, 500};
+
+  PulseData pulse(0.5, v, data);
+
+  assertThrow( writer.write(pulse), logic_error);
+}
+
 int main() {
   test_write_pulses();
+  test_cannot_write_after_closed();
   return 0;
 }

@@ -15,6 +15,9 @@ PulseDataWriter::PulseDataWriter(const std::string& filename) :
 
 void PulseDataWriter::write(const PulseData& pulse_data) {
     
+  if (is_closed)
+    throw logic_error(__PRETTY_FUNCTION__ + string(": PulseDataWriter cannot write after being closed."));
+
   writeDouble(pulse_data.getStartTime());
 
   math_vector boresight = pulse_data.getBoresight();
@@ -28,6 +31,7 @@ void PulseDataWriter::write(const PulseData& pulse_data) {
 }
 
 void PulseDataWriter::close() {
+  is_closed = true;
   ofs.close();
 }
 
