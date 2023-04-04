@@ -7,7 +7,8 @@ using namespace radsim;
 using namespace std;
 
 PulseDataWriter::PulseDataWriter(const std::string& filename) :
-  ofs(filename)
+  ofs(filename),
+  is_closed(false)
 {
   //write file version
   write<int>(0);
