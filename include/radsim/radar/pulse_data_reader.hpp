@@ -4,8 +4,9 @@
 class PulseDataReader {
   public:
     PulseDataReader(const std::string filename);
-    PulseData Read();
-    Close();
+    PulseData read();
+    bool eof();
+    close();
 };
 
 #endif
