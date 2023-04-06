@@ -34,6 +34,7 @@ add_library(rads SHARED  src/utils/utils.cpp
                          src/radar/adc.cpp
                          src/radar/radar_config_parser.cpp
                          src/radar/pulse_data.cpp
+                         src/radar/pulse_data_writer.cpp
                          src/radar/radar_state.cpp
                          src/radar/radar.cpp
                          src/radar/radar_config.cpp
