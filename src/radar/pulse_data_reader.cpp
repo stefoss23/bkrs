@@ -40,7 +40,8 @@ PulseData PulseDataReader::read() {
 
 
 bool PulseDataReader::eof() {
-  return false;
+  in.peek();
+  return in.eof();
 }
 
 
