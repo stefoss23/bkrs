@@ -16,13 +16,13 @@ PulseDataReader::PulseDataReader(const std::string filename) :
     throw invalid_argument(__PRETTY_FUNCTION__ + string(": error reading file: '" + filename + "'"));
 
   //read fileversion
-  cout << "version = " << readInt() << endl;
+  cout << "version = " << read<int>() << endl;
 }
 
 
 PulseData PulseDataReader::read() {
 
-  double t = readDouble();
+  double t = read<double>();
 
   cout << "--- time = " << t << endl;
 

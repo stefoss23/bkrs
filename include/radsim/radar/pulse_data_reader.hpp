@@ -21,6 +21,13 @@ class PulseDataReader {
       return num;
     }
 
+    template <class T>
+    T read() {
+      T num;
+      in.read(reinterpret_cast<char *>(&num), sizeof(num));
+      return num;
+    }
+
   public:
     PulseDataReader(const std::string filename);
     PulseData read();
