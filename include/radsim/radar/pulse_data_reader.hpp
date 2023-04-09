@@ -9,18 +9,6 @@ class PulseDataReader {
   private:
     std::ifstream in;
 
-    int readInt() {
-      int num;
-      in.read(reinterpret_cast<char *>(&num), sizeof(num));
-      return num;
-    }
-
-    double readDouble() {
-      double num;
-      in.read(reinterpret_cast<char *>(&num), sizeof(num));
-      return num;
-    }
-
     template <class T>
     T read() {
       T num;
