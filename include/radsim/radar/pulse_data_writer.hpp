@@ -5,7 +5,7 @@
 /*
 Filestructure:
 
-File Version                    (int): 4 bytes
+File Version                    (int): 4 bytes  (in case structure is changed later)
 ----------------------------------------------
 For each pulse data object:
 

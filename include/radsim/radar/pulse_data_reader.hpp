@@ -16,6 +16,8 @@ class PulseDataReader {
       return num;
     }
 
+  void assertNotEndOfFile();
+
   public:
     PulseDataReader(const std::string filename);
     PulseData read();

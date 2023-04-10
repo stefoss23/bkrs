@@ -66,8 +66,8 @@ void testWrongFileStructure() {
   ofstream ofs(filename);
 
   int num = 123456;
-  ofs.write((char *) &num, sizeof num);
-  ofs.write((char *) &num, sizeof num);
+  ofs.write((char *) &num, sizeof num); //written file version
+  ofs.write((char *) &num, sizeof num); //started writing in pulse data segment
   ofs.close();
 
   PulseDataReader reader(filename);
@@ -76,8 +76,21 @@ void testWrongFileStructure() {
   reader.close();
 }
 
+void testMissingFileVersion() {
+  const string filename = "filename2";
+  
+  ofstream ofs(filename);
+
+  char num = 'y';
+  ofs.write((char *) &num, sizeof num); //written part of file version
+  ofs.close();
+
+  assertThrow( {PulseDataReader reader(filename);} , logic_error);
+}
+
 int main() {
   test_reader();
   testWrongFileStructure();
+  testMissingFileVersion();
   return 0;
 }

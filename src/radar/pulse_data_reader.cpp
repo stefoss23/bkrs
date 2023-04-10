@@ -17,6 +17,8 @@ PulseDataReader::PulseDataReader(const std::string filename) :
 
   //read fileversion
   read<int>();
+
+  assertNotEndOfFile();
 }
 
 
@@ -35,8 +37,7 @@ PulseData PulseDataReader::read() {
   for (int i = 0; i < size; i++)
     data[i] = read<unsigned short>();
 
-  if (in.eof())
-    throw logic_error(__PRETTY_FUNCTION__ + string(": Reached unexpected end-of-file."));
+  assertNotEndOfFile();
 
   return PulseData(t, math_vector {x, y, z}, data);
 }
@@ -47,6 +48,10 @@ bool PulseDataReader::eof() {
   return in.eof();
 }
 
+void PulseDataReader::assertNotEndOfFile() {
+  if (in.eof())
+    throw logic_error(__PRETTY_FUNCTION__ + string(": Reached unexpected end-of-file."));
+}
 
 void PulseDataReader::close() {
 }
