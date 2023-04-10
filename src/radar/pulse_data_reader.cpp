@@ -37,7 +37,10 @@ PulseData PulseDataReader::read() {
   double z = read<double>();
 
   int size = read<int>();
-  vector<unsigned short> data(size);
+
+  assertNotEndOfFile();
+
+  vector<unsigned short> data(size);  
   for (int i = 0; i < size; i++)
     data[i] = read<unsigned short>();
 
