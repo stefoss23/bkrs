@@ -10,7 +10,8 @@ using namespace radsim;
 using namespace std;
 
 PulseDataReader::PulseDataReader(const std::string filename) :
-  in(filename)
+  in(filename),
+  is_closed(false)
 {
   if (!in)
     throw invalid_argument(__PRETTY_FUNCTION__ + string(": error reading file: '" + filename + "'"));
@@ -23,6 +24,9 @@ PulseDataReader::PulseDataReader(const std::string filename) :
 
 
 PulseData PulseDataReader::read() {
+
+  if (is_closed)
+    throw logic_error(__PRETTY_FUNCTION__ + string(": cannot read when reader is closed."));
 
   //pulse start time
   double t = read<double>(); //s
@@ -54,4 +58,6 @@ void PulseDataReader::assertNotEndOfFile() {
 }
 
 void PulseDataReader::close() {
+  in.close();
+  is_closed = true;
 }

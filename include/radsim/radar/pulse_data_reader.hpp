@@ -8,6 +8,7 @@ namespace radsim {
 class PulseDataReader {
   private:
     std::ifstream in;
+    bool is_closed;
 
     template <class T>
     T read() {

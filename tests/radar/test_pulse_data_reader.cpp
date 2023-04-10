@@ -89,9 +89,20 @@ void testMissingFileVersion() {
   assertThrow( {PulseDataReader reader(filename);} , logic_error);
 }
 
+void testClose() {
+  const string filename = "filename3";
+  createDataFile(filename);
+
+  PulseDataReader reader(filename);
+  reader.close();
+
+  assertThrow(reader.read(), logic_error);
+}
+
 int main() {
   test_reader();
   testWrongFileStructure();
   testMissingFileVersion();
+  testClose();
   return 0;
 }
