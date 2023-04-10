@@ -28,7 +28,6 @@ void createDataFile(const string& filename) {
   writer.close();
 }
 
-
 void test_reader() {
   const string filename = "filename";
 
@@ -58,10 +57,27 @@ void test_reader() {
   assertIntEqual(pulse3.registry[2], 700);
 
   assertTrue(reader.eof());
+  reader.close();
 }
 
+void testWrongFileStructure() {
+  const string filename = "filename1";
+  
+  ofstream ofs(filename);
+
+  int num = 123456;
+  ofs.write((char *) &num, sizeof num);
+  ofs.write((char *) &num, sizeof num);
+  ofs.close();
+
+  PulseDataReader reader(filename);
+  assertThrow(reader.read(), logic_error);
+
+  reader.close();
+}
 
 int main() {
   test_reader();
+  testWrongFileStructure();
   return 0;
 }
