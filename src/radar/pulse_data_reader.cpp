@@ -35,6 +35,9 @@ PulseData PulseDataReader::read() {
   for (int i = 0; i < size; i++)
     data[i] = read<unsigned short>();
 
+  if (in.eof())
+    throw logic_error(__PRETTY_FUNCTION__ + string(": Reached unexpected end-of-file."));
+
   return PulseData(t, math_vector {x, y, z}, data);
 }
 
