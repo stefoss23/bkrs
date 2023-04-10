@@ -37,6 +37,7 @@ void test_reader() {
   //test read first pulse:
   PulseData pulse1 = reader.read();
   assertFalse(reader.eof());
+  assertFalse(reader.eof()); //doing this an extra time to make sure of readability is not changed
   assertDoubleEqual(pulse1.getStartTime(), 4.5, 1e-5);
   math_vector boresight = pulse1.getBoresight();
 
