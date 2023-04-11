@@ -10,14 +10,15 @@ class PulseDataReader {
     std::ifstream in;
     bool is_closed;
 
+    void assertNotEndOfFile();
+
     template <class T>
     T read() {
       T num;
       in.read(reinterpret_cast<char *>(&num), sizeof(num));
+      assertNotEndOfFile();
       return num;
-    }
-
-  void assertNotEndOfFile();
+    }  
 
   public:
     PulseDataReader(const std::string filename);

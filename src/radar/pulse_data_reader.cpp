@@ -18,8 +18,6 @@ PulseDataReader::PulseDataReader(const std::string filename) :
 
   //read fileversion
   read<int>();
-
-  assertNotEndOfFile();
 }
 
 
@@ -38,13 +36,9 @@ PulseData PulseDataReader::read() {
 
   int size = read<int>();
 
-  assertNotEndOfFile();
-
   vector<unsigned short> data(size);  
   for (int i = 0; i < size; i++)
     data[i] = read<unsigned short>();
-
-  assertNotEndOfFile();
 
   return PulseData(t, math_vector {x, y, z}, data);
 }
