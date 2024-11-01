@@ -16,3 +16,5 @@ to test real time track performance.
      
 *10-bit signal measurements as function of time during reception of a single pulse.*
 
+System Requirements:
+- Linux Only
