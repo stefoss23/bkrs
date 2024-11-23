@@ -23,7 +23,7 @@ foreach (test  test_approx_function
                test_radar_config
                test_radar_generate
         )
-        add_test(NAME python_${test} COMMAND python ${PYTHON_TEST_DIR}/${test}.py)
+        add_test(NAME python_${test} COMMAND python3 ${PYTHON_TEST_DIR}/${test}.py)
 endforeach()
 
 EXECUTE_PROCESS( COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_BINARY_DIR}/python/tests/test_devel_python.so" "${PYTHON_TEST_DIR}/test_devel_python.so")
