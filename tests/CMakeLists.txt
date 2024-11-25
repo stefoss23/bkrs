@@ -60,6 +60,7 @@ endforeach ()
 foreach (test   test_radar_exceptions
                 test_interface
                 test_interface_performance
+                test_radar_data_queue_concurrence
     )
     add_executable(${test} radar/${test}.cpp)
     target_link_libraries(${test} rads)
