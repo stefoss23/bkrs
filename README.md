@@ -1,5 +1,5 @@
 # BKRadSim 
-Signal level radar simulator tool for tracking algorithm development
+Signal level radar simulator tool for tracking algorithm development (c++ or Python)
 
 BKRadSim is a radar signal level simulation software library specifically designed
 for naval radars. Its end product is the raw signal sampling after reception
