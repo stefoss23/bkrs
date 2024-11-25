@@ -9,5 +9,5 @@ foreach (example  eval_beam_shape
                   eval_detection_cluster
 
         )
-        add_test(NAME example_${example} COMMAND python ${PYTHON_EXAMPLE_DIR}/${example}.py hide)
+        add_test(NAME example_${example} COMMAND python3 ${PYTHON_EXAMPLE_DIR}/${example}.py hide)
 endforeach()

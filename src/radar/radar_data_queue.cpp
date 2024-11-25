@@ -1,4 +1,4 @@
-
+#include <stdexcept>
 
 #include <radsim/radar/radar_data_queue.hpp>
 
