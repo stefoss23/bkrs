@@ -1435,7 +1435,7 @@ position(t) = \begin{cases}
     backgroundcolor=\color{black!5}, % set backgroundcolor
     basicstyle=\footnotesize,% basic font setting
 }
-At this point, there is no well defined Python library - it is in the making. A present example of library code is this:
+There is a Python library - based on the c++ library. A present example of library code is this:
 \begin{lstlisting}
 import numpy as np
 from bkradsim.radar import RadarConfigParser, Radar, Target
@@ -1446,7 +1446,9 @@ Target target(np.array([10000, 0, 0]), 1.0)
 radar = Radar(config)
 \end{lstlisting}
 
-The library is intented firstly to mimick the C++ library. There may be, in time, functionality that allows easy data-feed compatible with powerful machine learning libraries.
+The library is intented firstly as a simpler means of accessing the C++ library. There may be, in time, functionality that allows easy data-feed compatible with powerful machine learning libraries.
+
+As of today, there remains a lot of work regarding documentation.
 
 
 \chapter{Radar Configuration Files}
@@ -1603,9 +1605,6 @@ When a pulse signal is emitted from the radar, one part of the signal travels di
 
 \subsection{Target Model}
 As with many radar simulation software programs such as Carpet \cite{ref:carpet}, the object that is targeted for detection is decribed very simple: the location, radar cross section and a simple statistical model for the randomness of the echo return signal. As for a statistical model, this can be added. Also, the current model uses a simple square pulse for the backscattered signal, yet this signal is in reality a superposition of the echos of several backscatterers. Thus the shape needs to change, and also have an extension due to target size.
-
-\subsection{Java Library}
-Functionality in a high level programming language is already available as a Python package. Software development in Python is easy and fast. By vectorization or by properly taking advantage of currently available packages, execution of Python code can be as quick as c++ in many regards. However, tracking algorithms do not always exist in a form where this is possible. In such a case, being an interpreted language, execution speed is slow. That is primarily the reason why the BKRadsim library is written in c++. But, the Javascript is another language that can write binary code, and unlike c++ it benefits from garbage collection. Many more people are familiar with it than c++. Execution time will not be quite as fast as c++, but in the same order and a lot faster than Python. In order to make the spread of BKRadsim happen faster, it is a goal to bind it to a Javacript library as well.
 
 \subsection{Collaboration}
 The first feature that will be added next is a sea clutter model. This is followed by a simple multipath propagation model taking into consideration earth curvature and the 4/3 earth model for the refraction index. This product is an open source software project and is set for expansion. The hope is that many more will contribute to it by development, physical modelling, usage and testing so that this thing can grow and thrive on the Internet. 
