@@ -1435,7 +1435,7 @@ position(t) = \begin{cases}
     backgroundcolor=\color{black!5}, % set backgroundcolor
     basicstyle=\footnotesize,% basic font setting
 }
-At this point, there is no well defined Python library - it is in the making. A present example of library code is this:
+There is a Python library - based on the c++ library. A present example of library code is this:
 \begin{lstlisting}
 import numpy as np
 from bkradsim.radar import RadarConfigParser, Radar, Target
@@ -1446,7 +1446,9 @@ Target target(np.array([10000, 0, 0]), 1.0)
 radar = Radar(config)
 \end{lstlisting}
 
-The library is intented firstly to mimick the C++ library. There may be, in time, functionality that allows easy data-feed compatible with powerful machine learning libraries.
+The library is intented firstly as a simpler means of accessing the C++ library. There may be, in time, functionality that allows easy data-feed compatible with powerful machine learning libraries.
+
+As of today, there remains a lot of work regarding documentation.
 
 
 \chapter{Radar Configuration Files}
