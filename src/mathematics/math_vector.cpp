@@ -1,4 +1,4 @@
-#include <math.h>kræsj
+#include <math.h>
 
 #include <string>
 #include <iostream>
