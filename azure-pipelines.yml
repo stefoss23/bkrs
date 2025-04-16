@@ -39,3 +39,9 @@ steps:
     cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
   displayName: 'Build'
+
+- script: |
+    cd build
+    pwd
+    ctest
+  displayName: 'Test'
