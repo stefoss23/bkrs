@@ -34,6 +34,8 @@ steps:
   displayName: 'Create build directory'
 
 - script: |
+    cd build
+    pwd
     cmake ..
     cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF .
   displayName: 'Build'
