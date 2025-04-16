@@ -25,9 +25,11 @@ steps:
 
 - script: |
     ls -l
+    pwd
     mkdir build
     cd build
     echo check new directory
+    pwd
     ls -l
   displayName: 'Create build directory'
 
