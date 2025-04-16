@@ -4,14 +4,23 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- '*'
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
 - script: cmake --version
-  displayName: 'Run a one-line script'
+  displayName: 'Check cmake version'
+
+- script: g++ --version
+  displayName: 'Check g++ version'
+
+- script: python3 --version
+  displayName: 'Check Python version'
+
+- script: valgrind --version
+  displayName: 'Check valgrind version'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
