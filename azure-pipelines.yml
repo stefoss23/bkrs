@@ -19,8 +19,9 @@ steps:
 - script: python3 --version
   displayName: 'Check Python version'
 
-- script: valgrind --version
-  displayName: 'Check valgrind version'
+#Valgrind not yet installed
+#- script: valgrind --version
+#  displayName: 'Check valgrind version'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
