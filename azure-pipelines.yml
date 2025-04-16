@@ -24,8 +24,11 @@ steps:
 #  displayName: 'Check valgrind version'
 
 - script: |
+    ls -l
     mkdir build
     cd build
+    echo check new directory
+    ls -l
   displayName: 'Create build directory'
 
 - script: |
