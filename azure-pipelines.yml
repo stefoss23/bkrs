@@ -4,16 +4,36 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- '*'
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: cmake --version
+  displayName: 'Check cmake version'
+
+- script: g++ --version
+  displayName: 'Check g++ version'
+
+- script: python3 --version
+  displayName: 'Check Python version'
+
+#Valgrind not yet installed
+#- script: valgrind --version
+#  displayName: 'Check valgrind version'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    mkdir build
+  displayName: 'Create build directory'
+
+- script: |
+    cd build
+    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
+    make -j 4
+  displayName: 'Build'
+
+- script: |
+    cd build
+    ctest
+  displayName: 'Test'
