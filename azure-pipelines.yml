@@ -1,6 +1,6 @@
 
-trigger:
-- '*'
+#trigger:
+#- '*'
 
 pool:
   vmImage: ubuntu-latest
@@ -25,12 +25,20 @@ steps:
   displayName: 'Create build directory'
 
 - script: |
+    git submodule init
+    git submodule update
+    pip3 install numpy
+    pip3 install matplotlib
+  displayName: 'Add python dependencies'
+
+- script: |
     cd build
-    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
+    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=ON -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
   displayName: 'Build'
 
 - script: |
+    export PYTHONPATH=$(pwd)/python/lib/site-packages
     cd build
     ctest --verbose
   displayName: 'Test'
