@@ -19,6 +19,11 @@ steps:
 - script: python3 --version
   displayName: 'Check Python version'
 
+- script: |
+    sudo apt-get install valgrind
+    valgrind --version
+  displayName: install valgrind
+
 #Valgrind not yet installed
 #- script: valgrind --version
 #  displayName: 'Check valgrind version'
