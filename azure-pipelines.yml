@@ -50,7 +50,10 @@ steps:
     cd build
     cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=ON -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
-    cd $PYTHONPATH/bkradsim/radar
+    echo PYTHONPATH set to $PYTHONPATH
+    cd $PYTHONPATH
+    cd bkradsim
+    cd radar
     echo At radar xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     ls -l
     echo RADARPY LIBRARY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
