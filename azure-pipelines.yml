@@ -32,33 +32,9 @@ steps:
   displayName: 'Add python dependencies'
 
 - script: |
-    export PYTHONPATH=$(pwd)/python/lib/site-packages
-    pwd
-    echo PYTHONPATH set to $PYTHONPATH
-    cd $PYTHONPATH
-    echo At PYTHONPATH xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    ls -l
-    cd bkradsim
-    echo At bkradsim xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    ls -l
-    cd radar
-    echo At radar xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    ls -l
-  displayName: 'set PYTHONPATH'
-
-- script: |
-    export PYTHONPATH=$(pwd)/python/lib/site-packages
     cd build
     cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=ON -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
-    echo PYTHONPATH set to $PYTHONPATH
-    cd $PYTHONPATH
-    cd bkradsim
-    cd radar
-    echo At radar xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    ls -l
-    echo RADARPY LIBRARY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    nm radar_python.so
   displayName: 'Build'
 
 - script: |
