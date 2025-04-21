@@ -47,6 +47,7 @@ steps:
   displayName: 'set PYTHONPATH'
 
 - script: |
+    export PYTHONPATH=$(pwd)/python/lib/site-packages
     cd build
     cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=ON -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
@@ -61,6 +62,7 @@ steps:
   displayName: 'Build'
 
 - script: |
+    export PYTHONPATH=$(pwd)/python/lib/site-packages
     cd build
     ctest --verbose
   displayName: 'Test'
