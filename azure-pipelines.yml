@@ -36,22 +36,25 @@ steps:
     pwd
     echo PYTHONPATH set to $PYTHONPATH
     cd $PYTHONPATH
-    echo At PYTHONPATH ******************************************************************************
+    echo At PYTHONPATH xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     ls -l
     cd bkradsim
-    echo At bkradsim ********************************************************************************
+    echo At bkradsim xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     ls -l
     cd radar
-    echo At radar ***********************************************************************************
+    echo At radar xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     ls -l
-    echo RADARPY LIBRARY ****************************************************************************
-    nm radar_python.so
   displayName: 'set PYTHONPATH'
 
 - script: |
     cd build
     cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=ON -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
+    cd $PYTHONPATH/bkradsim/radar
+    echo At radar xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    ls -l
+    echo RADARPY LIBRARY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    nm radar_python.so
   displayName: 'Build'
 
 - script: |
