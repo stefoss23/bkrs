@@ -32,7 +32,7 @@ steps:
   displayName: 'Add python dependencies'
 
 - script: |
-    export PYTHONPATH='$(pwd)/python/lib/site-packages'
+    export PYTHONPATH=$(pwd)/python/lib/site-packages
     pwd
     echo PYTHONPATH set to $PYTHONPATH
   displayName: 'set PYTHONPATH'
