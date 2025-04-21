@@ -24,10 +24,6 @@ steps:
     valgrind --version
   displayName: install valgrind
 
-#Valgrind not yet installed
-#- script: valgrind --version
-#  displayName: 'Check valgrind version'
-
 - script: |
     mkdir build
   displayName: 'Create build directory'
@@ -42,3 +38,9 @@ steps:
     cd build
     ctest --verbose
   displayName: 'Test'
+
+- script: |
+    cd build
+    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=ON .
+    ctest --verbose
+  displayName: 'Memory tests w/ valgrind'
