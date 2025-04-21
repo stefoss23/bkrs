@@ -27,10 +27,12 @@ steps:
 - script: |
     git submodule init
     git submodule update
+    pip3 install numpy
+    pip3 install matplotlib
     cd python
     cd pybind11
     ls -l
-  displayName: 'clone PyBind11'
+  displayName: 'Add python dependencies'
 
 - script: |
     export PYTHONPATH='$(pwd)/python/lib/site-packages'
