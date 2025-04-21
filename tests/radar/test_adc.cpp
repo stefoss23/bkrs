@@ -48,7 +48,7 @@ void test_wrong_inputs() {
 }
 
 int main() {
-  int * a = new int(8);
+   int * a = new int(8);
   test_adc_effect_mode();
   test_adc_log_mode();
   test_wrong_inputs();
