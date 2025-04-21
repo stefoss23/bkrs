@@ -1,7 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - '*'
@@ -19,9 +15,10 @@ steps:
 - script: python3 --version
   displayName: 'Check Python version'
 
-#Valgrind not yet installed
-#- script: valgrind --version
-#  displayName: 'Check valgrind version'
+- script: |
+    sudo apt-get install valgrind
+    valgrind --version
+  displayName: install valgrind
 
 - script: |
     mkdir build
@@ -37,3 +34,9 @@ steps:
     cd build
     ctest --verbose
   displayName: 'Test'
+
+- script: |
+    cd build
+    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=ON .
+    ctest --verbose
+  displayName: 'Memory tests w/ valgrind'
