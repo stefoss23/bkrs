@@ -1,6 +1,6 @@
 
-trigger:
-- '*'
+#trigger:
+#- '*'
 
 pool:
   vmImage: ubuntu-latest
@@ -35,6 +35,17 @@ steps:
     export PYTHONPATH=$(pwd)/python/lib/site-packages
     pwd
     echo PYTHONPATH set to $PYTHONPATH
+    cd $PYTHONPATH
+    echo At PYTHONPATH ******************************************************************************
+    ls -l
+    cd bkradsim
+    echo At bkradsim ********************************************************************************
+    ls -l
+    cd radar
+    echo At radar ***********************************************************************************
+    ls -l
+    echo RADARPY LIBRARY ****************************************************************************
+    nm radar_python.so
   displayName: 'set PYTHONPATH'
 
 - script: |
