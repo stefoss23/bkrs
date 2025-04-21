@@ -29,9 +29,6 @@ steps:
     git submodule update
     pip3 install numpy
     pip3 install matplotlib
-    cd python
-    cd pybind11
-    ls -l
   displayName: 'Add python dependencies'
 
 - script: |
