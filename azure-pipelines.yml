@@ -25,8 +25,22 @@ steps:
   displayName: 'Create build directory'
 
 - script: |
+    git submodule init
+    git submodule update
+    cd python
+    cd pybind11
+    ls -l
+  displayName: 'clone PyBind11'
+
+- script: |
+    export PYTHONPATH='$(pwd)/python/lib/site-packages'
+    pwd
+    echo PYTHONPATH set to $PYTHONPATH
+  displayName: 'set PYTHONPATH'
+
+- script: |
     cd build
-    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=OFF -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
+    cmake -D ENABLE_PYTHON_EXAMPLES=OFF -D ENABLE_PYTHON=ON -D ENABLE_CXX_EXAMPLES=OFF -D MEM_CHECK=OFF ..
     make -j 4
   displayName: 'Build'
 
