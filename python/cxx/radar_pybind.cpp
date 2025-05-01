@@ -34,20 +34,7 @@ namespace {
   }
 
   /*
-     YES, this class is HORRIBLE in terms of efficiency!
-     Any addition of target to the class is by copy. 
-     Any extraction of target to the class is by copy
-     Access is made by linearly transversing the linked list. 
-
-     HOWEVER, since Radar::generatePulseData requires a list<target>& argument, a wrapper around 
-     list<target> is required, since this container type is not directly exposed by the pybind11 system. 
-     Because of the mismatch between the garbage collection system of Python, and the unmanaged code of c++,
-     copying is also the safest way. 
-
-     Usually, much of the program execution time will be by calls to Radar::generatePulseData, and it is
-     or primary importance that this function access Targets or list<Target> by reference. 
-     As long as the list<Target>& argument is in place, execution will almost be as fast as in c++. 
-     This happens of course at a higher cost of simulation setup. 
+     Copies data into TargetCollection, instead of referencing. This is due to the differences in memory handling between C++ and Python.
   */
   class PythonTargetCollection {
     private:
